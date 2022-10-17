@@ -2,9 +2,14 @@
 This is the root repository for Olivia Pinney's Data Vizualization portfolio through the UChicago, Fall 2022 data visualization course. I started this project with no experience in HTML, JavaScript and D3. Over the next three weeks I hope to create some through provoking visualizations using these three languages. You can follow my progressions in this repository. 
 
 ## Course Content
- - week_01 [link](https://github.com/olpinney/CAPP30239_FA22/tree/main/week_01)
- - week_02 [link](https://github.com/olpinney/CAPP30239_FA22/tree/main/week_02)
- - week_03 [link](https://github.com/olpinney/CAPP30239_FA22/tree/main/week_03)
+ - week_01 
+    - [data portrait]()
+    - [frankenstein]()
+ - week_02 
+    - writing javascript (no visualizations)
+ - week_03 
+    - [covid bar chart]()
+    - [library bar chart]() 
  - week_04
  - week_05
  - week_06

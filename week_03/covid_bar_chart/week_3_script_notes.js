@@ -72,3 +72,8 @@ d3.csv("covid.csv").then(data =>{
 //java is async so dont know the order at which things are loaded
 //promise helps us control the flow
 //arrows are just shortcuts for functions
+
+
+
+//format = d3.format(",")
+    //formattedY = format(y)
