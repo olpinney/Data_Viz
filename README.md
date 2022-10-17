@@ -3,13 +3,13 @@ This is the root repository for Olivia Pinney's Data Vizualization portfolio thr
 
 ## Course Content
  - week_01 
-    - [data portrait]()
-    - [frankenstein]()
+    - [data portrait](https://olpinney.github.io/CAPP30239_FA22/week_01/data_portrait/README.md)
+    - [frankenstein](https://olpinney.github.io/CAPP30239_FA22/week_01/frankenstein/index.html)
  - week_02 
     - writing javascript (no visualizations)
  - week_03 
-    - [covid bar chart]()
-    - [library bar chart]() 
+    - [covid bar chart](https://olpinney.github.io/CAPP30239_FA22/week_03/covid_bar_chart/index.html)
+    - [library bar chart](https://olpinney.github.io/CAPP30239_FA22/week_03/library_visits/homework.html) 
  - week_04
  - week_05
  - week_06
