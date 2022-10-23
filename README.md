@@ -11,6 +11,7 @@ This is the root repository for Olivia Pinney's Data Vizualization portfolio thr
     - [covid bar chart](https://olpinney.github.io/CAPP30239_FA22/week_03/covid_bar_chart/index.html)
     - [library bar chart](https://olpinney.github.io/CAPP30239_FA22/week_03/library_visits/homework.html) 
  - week_04
+   - [canadian long term interest line chart](https://olpinney.github.io/CAPP30239_FA22/week_04/canadian_long_term_interest/homework.html) 
  - week_05
  - week_06
  - week_07
