@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Violence</title>
+    <style>
+        * {font-family: Arial, Helvetica, sans-serif;}
+
+        #container {
+        max-width: 1040px;
+        margin: 0 auto;
+        }
+
+        #chart { 
+        width: 100%; 
+        }
+
+        text {
+        font-size: 10px;
+        }
+
+        .y-axis path.domain { 
+        display: none;  
+        }
+
+        .y-axis line {
+        stroke: #ddd;
+        stroke-dasharray: 2;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>People Fatally Shot by the Police in 2015</h1>
+            
+        <h3>The American Police force killed 1537 people in 2015. The following analysis uses three chart types to explore when these fatal shootings occured.</h3> 
+        <h4>Source:<a href="https://github.com/tiffanyfrance/CAPP30239_FA22/blob/main/week_07/transforming-data/a3cleanedonly2015.json">Professor France's Github</a> </h4>
+        
+    </div>
+    <div id="container">
+        <h1>Fatalities Over Time</h1>
+        <p>Violence, especially gun violence, is seasonally cyclical.  Thus, I expected that there would also be some seasonal variability in rates of police fatal shootings. Surprisingly this is not the case. As seen below, cumulative fatal shootings increases linearly over the course of 2015. This suggests that civilian rates of violence and police rates of violence are not highly correlated. 
+        </p>
+        <h2>Cumulative Fatal Shootings by the Police in 2015 </h2>
+        <div id="line_chart"></div>
+      </div>
+    <div id="container">
+        <h1>Fatalities by Race of Victim</h1>
+        <p>Americans have become increasingly aware of the racially disproportionate nature of police violence. Namely, police kill more black and brown civilians than they do white civilians, relative to the underlying population sizes. While the following data is not normalized by percentage of the population, we can see that Black and Hispanic victims make up a significant portion of the victims in 2015. It should also be noted that Native fatalities are also high relative to their proportion of the population.           
+        </p>
+        <h2>Race of Victims in 2015</h2>
+       <div id="bar_chart"></div>
+      </div>
+    <div id="container">
+        <h1>Fatalities by Weapon Possession</h1>
+        <p> The disproporiate killings of black and brown Americans are partly attributed to internalized racial bias by police officers. This is especially apparent when police officers percieve black and brown civilians to be more threatening than white civilians would be in the same situation. 
+            Looking at police killings by whether the victim was armed with a gun, another weapon, or no wepon gives us some insight into whether there are racial difference between weapon possessions in police killings.  I should note that these percentages have lower levels of accuracy in smaller racial groups due to the small sample set. 
+        </p>
+        <p> The 2015 data fits this trend. Namely, among people killed by the police, White civilians were more likely to be armed with a gun than were Black or Hispanic civilians. On the flip side, Black civilians killed by the police were more likely to be unarmed (or have no weapon reported) than were White civilians (though this trend does not hold for Hispanic civilians)          
+        </p>
+       <div id="pie_chart"></div>
+      </div>
+
+    
+    
+    </div>
+    <script src="d3.v7.min.js.download"></script>
+    <script src="line_chart.js"></script> 
+    <script src="bar_chart.js"></script>
+    <script src="multi_ring_armed.js"></script>
+
+</body>
+</html>
