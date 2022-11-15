@@ -1,27 +1,20 @@
 //https://observablehq.com/@ch-bu/bubble-chart-split-my-running-by-year
 console.log("1")
 
+
 //OP put these in here
 height = 400 
 width = 800, //was missing so OP added
 margin = ({top: 50, right: 100, bottom: 50, left: 200})
 
 
-//his definitions of terms
+//his definitions
 splitHeight = 900
 noSplitHeight = 500
 innerWidth = width - margin.left - margin.right
 margin = ({top: 30, right: 30, left: 120, bottom: 30})
 
-//how he loaded his code. This didnt work for me so i replaced it with the below d3.csv
-
-// running = d3.csvParse(await FileAttachment('running_runtastic.csv').text(), d => {
-//   return {
-//     year: +d.year,
-//     distance: +d.distance,
-//     speed: +d['average_speed']
-//   }
-// })
+//definitions from his code
 
 //pullin in data
 d3.csv("running.csv").then(running => {
@@ -31,7 +24,8 @@ d3.csv("running.csv").then(running => {
     for (let d of running) {
         d.year = +d.year,
         d.distance = +d.distance,
-        speed = +d['average_speed'] // I dont understand this line
+        speed = +d['average_speed']
+//        speed = +d.speed //this is the one that isnt working 
     };
 
     color = d3.scaleSequential(d3.extent(running, d => d.speed), d3.interpolateOrRd);
@@ -86,6 +80,7 @@ let svg = d3.select("#bubble")
 
 const wrapper = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
     
 //Add x-Axis
 wrapper.append('g')
@@ -121,7 +116,7 @@ const circles = wrapper.append('g')
     .attr('y', d => y(d.year) + y.bandwidth() / 2)
     .attr('stroke', 'purple');
 
-/*d3.timeout(() => {
+d3.timeout(() => {
     for (var i = 0, n = Math.ceil(Math.log(force.alphaMin()) / 
                                     Math.log(1 - force.alphaDecay())); i < n; ++i) {
     force.tick();
@@ -130,7 +125,7 @@ const circles = wrapper.append('g')
         .attr('cx', d => d.x)
         .attr('cy', d => d.y);
     }
-})*/
+})
 
 force.on('tick', () => {
     circles
