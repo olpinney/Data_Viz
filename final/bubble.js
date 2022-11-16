@@ -1,4 +1,4 @@
-//https://observablehq.com/@ch-bu/bubble-chart-split-my-running-by-year
+//https://observablehq.com/@ch-bu/bubble-chart-split-my-data-by-year
 console.log("1")
 
 
@@ -17,42 +17,48 @@ margin = ({top: 30, right: 30, left: 120, bottom: 30})
 //definitions from his code
 
 //pullin in data
-d3.csv("running.csv").then(running => {
-    console.log(running)
+d3.csv("running_cleaned.csv").then(data => {
+    console.log(data)
 
     
-    for (let d of running) {
+    for (let d of data) {
         d.year = +d.year,
         d.distance = +d.distance,
-        speed = +d['average_speed']
-//        speed = +d.speed //this is the one that isnt working 
+        d.speed = +d.speed //this is the one that isnt working 
     };
 
-    color = d3.scaleSequential(d3.extent(running, d => d.speed), d3.interpolateOrRd);
-    yearGroups = d3.group(running, d => d.year)
+    color = d3.scaleSequential(d3.extent(data, d => d.speed), d3.interpolateOrRd);
+    //yearGroups = d3.group(data, d => d.year)
+    yearGroups = d3.group(data, d => Math.random() * 10) //here effect the random
 
-    median = d3.median(running, d => d.speed)
-    console.log(median)
-    
+
+    //look here to get the range of x. the scatter has correct axes
     x = d3.scaleLinear()
-      .domain(d3.extent(running, d => d.speed))
+      .domain(d3.extent(data, d => d.speed))
       .range([0, innerWidth])
     
-    y = d3.scaleBand()
-      .domain(['All'])
-      .range([noSplitHeight, 0])
+    const y = d3.scaleBand().domain(yearGroups.keys()).range([noSplitHeight, 0]);
+
+    // y = d3.scaleBand()
+    //   .domain(['All'])
+    //   .range([noSplitHeight, 0])
     
     r = d3.scaleSqrt()
-      .domain(d3.extent(running, d => d.distance))
+      .domain(d3.extent(data, d => d.distance))
       .range([1, 10])
 
-    force = d3.forceSimulation(running)
-      .force('charge', d3.forceManyBody().strength(0))
+  // charge is dependent on size of the bubble, so bigger towards the middle
+  function charge(d) {
+    return Math.pow(d.radius, 2.0) * 0.01
+  }
+
+    force = d3.forceSimulation(data)
+        .force('charge', d3.forceManyBody().strength(-3*r(d=>d.distance)))
       .force('x', d3.forceX().x(d => x(d.speed)))
       .force('y', d3.forceY(d => y(d.year)))
       .force('collision', d3.forceCollide().radius(d => r(d.distance) + 1))
     
-    groups = d3.group(running, d => d.year)
+    groups = d3.group(data, d => d.year)
     
     xAxis = g => g
       .call(d3.axisTop(x)
@@ -108,7 +114,7 @@ const yAxisContainer = wrapper.append('g')
 const circles = wrapper.append('g')
     .attr('className', 'circles')
     .selectAll('circle')
-    .data(running)
+    .data(data)
     .join('circle')
     .attr('r', d => r(d.distance))
     .attr('fill', d => color(d.speed))
@@ -122,8 +128,8 @@ d3.timeout(() => {
     force.tick();
     
     circles
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y);
+        .attr('x', d => d.x)
+        .attr('y', d => d.y);
     }
 })
 
@@ -156,7 +162,7 @@ return Object.assign(svg.node(), {
     // Update simulation
     force.force('y', split ? d3.forceY(d => y(d.year) + y.bandwidth() / 2) : // If split by year align by year
                                 d3.forceY((noSplitHeight - margin.top - margin.bottom) / 2)); // If not split align to middle
-    //force.nodes(running);
+    //force.nodes(data);
     force.alpha(1).restart();
     
     // Update median line
