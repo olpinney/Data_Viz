@@ -3,6 +3,15 @@
 //need help with legend adding colors, fixing animation time, getting tooltip in the top right
 // architecutre of the chart: structuring it so that I can refresh the data, and not lose the tooltip 
 
+
+//make x axis flexible
+//tell story with a couple analyses
+// fix legend with colors so x axis makes more sense
+
+//tool tip in place, dont disapear when click
+//do console log to see what is working
+//when click, delete evreything in tooltip 
+
 const height = 400,
 width = 700,
 margin = ({ top: 25, right: 30, bottom: 35, left: 150 });
@@ -99,6 +108,8 @@ function bubbleChart(svg) {
       .attr('r', d => d.radius)
       .attr('fill', d => color(d.color_var))
       .attr('stroke', 'purple');
+
+//modify the code so just resizing it, not deleting. d3 indepth transitions()
 
     // size bubbles based on area
     const maxSize = d3.max(data, d => d.size_var); //should probably set a minimum at 5
@@ -266,19 +277,28 @@ d3.json('data/departments_officers.json').then(data_all => {
             myBubbleChart(data,"Complaints","Self-Reported Use of Force Incidents")
         });
 
+    const tooltip_length=300
+    const tooltip_width=100
+    
     const tooltip = d3.select("body").append("div")
         .attr("class", "svg-tooltip")
-        .style("position", "absolute")
-        .style("visibility", "hidden");
+        .style("position", "relative")
+        .style("top","-"+(height+margin.bottom-margin.top)+"px")
+        .style("right","-"+(width+margin.left-(2*margin.right)-tooltip_length)+"px")
+        .style("width",tooltip_length+"px")
+        .style("height",tooltip_width+"px")
+        .style("border","2px solid")
 
     d3.selectAll("circle")
-        .on("mouseover", function(event, d) { // this event contains the position of the cursor. this is held in event.pageY
+        .on("click", function(event, d) { // this event contains the position of the cursor. this is held in event.pageY          
           d3.select(this).attr('stroke', 'grey')
           tooltip
             .style("visibility", "visible")
             .html(`NAME: ${d.full_name} <br /> TENURE: ${-1 +d.years_in_2016} YEAR(S) <br /> RANK: ${d.current_rank} <br /> INCIDENTS: ${d[bubble_var_selection+'_desc']}`);
         })
-        .on("mousemove", function(event) {
+        .on("click", function(event) {
+          console.log("click worked here")
+          d3.select(this).attr('stroke', 'grey')
             tooltip
               .style("top", (event.pageY - 10) + "px")
               .style("left", (event.pageX + 10) + "px");
@@ -286,10 +306,10 @@ d3.json('data/departments_officers.json').then(data_all => {
             // .style("left", (event.pageX + 10) + "px");
 
           })
-          .on("mouseout", function() {
-            d3.select(this).attr("stroke", "purple");
-            tooltip.style("visibility", "hidden");
-          })
+          // .on("click", function() {
+          //   d3.select(this).attr("stroke", "purple");
+          //   tooltip.style("visibility", "hidden");
+          // })
 
 
 });
