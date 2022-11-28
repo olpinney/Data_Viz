@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Violence</title>
+    <style>
+* { font-family: Arial, Helvetica, sans-serif; }
+        .flex-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            align-content: flex-start;
+            width: 100%;
+            max-width: 1040px;
+            height: 80vh;
+            overflow: auto;
+            flex-direction: row;
+            margin: 0 auto;
+        }
+        .flex-container .flex-item {
+            width: 100%;
+            min-height: 500px;
+            margin: 5px;
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 600px) {
+            .flex-container {
+                display: block;
+                width: 80%;
+                height: auto;
+            }
+            .flex-container .flex-item { min-height: auto; }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Violence by the Chicago Police Department</h1>
+    <p>
+        The Chicago Police Department (CPD) killing of Laquan McDonald in 2014 led to a city-wide reconning with violence at the hands of the CPD. 
+        <a href="https://github.com/invinst/chicago-police-data">The Invisible Institute</a> filed a freedom of information act (FOI) and obtained CPD records of 
+        personelle, internal tactical reponse reports (TRR) which detail officer use of force, internal departmental complaints, and external civilian complaints from 2004 to 2016. 
+    </p>
+    <p>
+        The following analysis explores how self-reported use of force (via TRR) and civilian complains are dispersed across the CPD roster. 
+    </p>
+    <h2>Chicago Police Department Roster in 2016</h2>
+    <p>
+        All officers active in the calendar year in 2016 are included under their last known position. 
+    </p>
+    <div id="area" class="container">
+    </div>
+    <h2>Bar Plots</h2>
+    <div id="bar" class="container"></div>
+    <p>
+        x
+    </p>
+    <h2>Distribution of Use of Force Across Department</h2>
+    <p>
+        Use of force across one's career differs widely by officers. Many officers have never reported using force via a tactical response report (TRR); however this does not mean they have not recieved complaints about their behavior.
+    </p>
+    <h3> Explore Officer Complaints Types & Click on Individual Officers to Learn More:</h3>
+    <p>
+        <label>
+          Department:
+          <select id="department">
+            <option value="DISTRICT 007">DISTRICT 007</option>
+            <option value="DISTRICT 006">DISTRICT 006 </option>        
+        </select>
+           </label>
+      </p>
+    <p>
+        <label>
+          Complaint Type (since 2000) or Officer-Reported Use of Force (since 2004):
+          <select id="bubble_variable">
+            <option value="civ_complaint_count">Civilian Complaints</option>
+            <!-- <option value="civ_complaint_per_year">Civilian Complaints per Year</option> -->
+            <option value="civ_complaint_force">Civilian Complaints: Use of Force </option>
+            <option value="civ_complaint_detain">Civilian Complaints: Arrest and Detainment</option>
+            <option value="civ_complaint_hate">Civilian Complaints: Discriminatory or Verbal Abuse</option>
+            <option value="civ_complaint_crime">Civilian Complaints: Criminal Activity</option>            
+            <option value="dept_complaint_cleaned_count">Department Complaints: Severe</option>
+            <!-- <option value="dept_complaint_cleaned_per_year">Department Complaints: Severe per Year</option> -->
+            <option value="force_count">Officer-Reported Use of Force</option>
+            <!-- <option value="force_count_per_year">Self-Reported Use of Force per Year</option> -->
+            <option value="weapon_count">Officer-Reported Use of Weapon</option>
+
+        </select>
+           </label>
+      </p>
+    <div id="legend" class="container"></div>   
+    <div id="scatter" class="container">
+    </div>
+
+    <script src="d3.v7.min.js.download"></script>
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+    <!-- <script src="bar_plot.js"></script> -->
+    <script src="bubble_plot.js"></script>
+
+</body>
+</html>

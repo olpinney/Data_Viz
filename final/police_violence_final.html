@@ -13,16 +13,16 @@
             justify-content: flex-start;
             align-items: flex-start;
             align-content: flex-start;
-            width: 100%;
-            max-width: 1040px;
-            height: 80vh;
+            /* width: 100%; */
+            /* max-width: 1040px; */
+            /* height: 80vh; */
             overflow: auto;
             flex-direction: row;
             margin: 0 auto;
         }
         .flex-container .flex-item {
             width: 100%;
-            min-height: 500px;
+            /* min-height: 500px; */ 
             margin: 5px;
         }
 
@@ -35,65 +35,180 @@
             }
             .flex-container .flex-item { min-height: auto; }
         }
-
+        .background_grey { background-color: rgb(206, 206, 206); } 
     </style>
 </head>
 <body>
-    <h1>Violence by the Chicago Police Department</h1>
+    <div class="background_grey"><h1>
+        Exploring Use of Force in the Chicago Police Department
+    </h1></div>
     <p>
-        The Chicago Police Department (CPD) killing of Laquan McDonald in 2014 led to a city-wide reconning with violence at the hands of the CPD. 
-        <a href="https://github.com/invinst">The Invisible Institute</a> filed a freedom of information act (FOI) and obtained CPD records of 
-        personelle, internal tactical reponse reports (TRR) which detail officer use of force, internal departmental complaints, and external civilian complaints from 2004 to 2016. 
+        Spurred by the magnitude of police killings of unarmed black civilians, America is reconning with violence at the hands of the police. This website gives you the opportunity to explore data on police violence yourself. 
+    </p><p>
+        This data was obtained from <a href="https://github.com/invinst/chicago-police-data">The Invisible Institute</a>, which sued the Chicago Police Department (CPD) to get these records released to the public. The data includes data on the police roster, police use of force, and civilian complaints through 2016.  
+    </p><p>
+        This document will help you understand variables contained in this dataset, and prepare you to explore them using the followng bubble chart type: 
     </p>
-    <p>
-        The following analysis explores how self-reported use of force (via TRR) and civilian complains are dispersed across the CPD roster. 
-    </p>
-    <h2>Chicago Police Department Roster in 2016</h2>
-    <p>
-        All officers active in the calendar year in 2016 are included under their last known position. 
-    </p>
-    <div id="area" class="container">
+    <center><h3>CPD Officers in District 1 by Use of Force</h3></center>
+    <h2>NEED ANNOTATIONS, fixing legend</h2>
+    <div id="legend_color" class="container"></div>  
+    <div id="scatter_intro" class="container"> </div>
+    <div class="background_grey">
+    <h1>Variable 1: Department</h1>
     </div>
-    <h2>Distribution of Use of Force Across Department</h2>
+    <h1>ADD DISTRICT NAME. MAYBE ADD TITLE NAME UNDER DISTRICT. NEED TEXT WRAPPING AND A WAY TO EXIT AFTER ENTERED. GET RID OF NARODICS CLICK. PUT OTHER LAST. GANG INVESTIGATION. ADD "OFFICERS" AFTER NUMBER</h1>
+    
     <p>
-        Use of force across one's career differs widely by officers. Many officers have never reported using force via a tactical response report (TRR); however this does not mean they have not recieved complaints about their behavior.
+        We often talk about police officers as a monolith, but this is not the case. 
+        The police are broken into over a hundred departments. 
+        Most officers work in police districts, which encompass beat officers and general 911 reponse. 
+        The remaining officers are distributed across departments at the city level. Some work as detectives, others in public transports, evidence management or training new recruits.          
     </p>
-    <h3> Explore Officer Complaints Types & Click on Individual Officers to Learn More:</h3>
-    <p>
-        <label>
-          Department:
-          <select id="department">
-            <option value="DISTRICT 007">DISTRICT 007</option>
-            <option value="DISTRICT 006">DISTRICT 006 </option>        
-        </select>
-           </label>
-      </p>
-    <p>
-        <label>
-          Complaint Type:
-          <select id="bubble_variable">
-            <option value="civ_complaint_count">Civilian Complaints</option>
-            <option value="civ_complaint_per_year">Civilian Complaints per Year</option>
-            <option value="civ_complaint_force">Civilian Complaints: Use of Force </option>
-            <option value="civ_complaint_detain">Civilian Complaints: Arrest and Detainment</option>
-            <option value="civ_complaint_hate">Civilian Complaints: Discriminatory or Verbal Abuse</option>
-            <option value="civ_complaint_crime">Civilian Complaints: Criminal Activity</option>            
-            <option value="dept_complaint_cleaned_count">Department Complaints: Severe</option>
-            <option value="dept_complaint_cleaned_per_year">Department Complaints: Severe per Year</option>
-            <option value="force_count">Self-Reported Use of Force (x-axis)</option>
-            <option value="force_count_per_year">Self-Reported Use of Force per Year</option>
-            <option value="weapon_count">Self-Reported Use of Weapon</option>
+    <p>Click on a department category to see more details.</p>
+    <div id="treemap" class="container">
+        <h3><center>2016 Police Roster by Department Category</center></h3>
+    </div>
+    <p>All officers active in the calendar year in 2016 are included under their last known position. </p>
+    
+    <div class="background_grey">
+        <h1>Variable 2: Tactical responses</h1>
+    </div>
+    <p>Most violence at the hands of the police is sanctioned by the state. 
+        The police are hired to perform take downs (e.g. tackling), closed hand punches, knee strikes, kicks, and more. These are classified as uses of force.
+        Police are also licensed to use weapons against civilians: namely tasers, pepper spray, batons and firearms. These are classified separately as use of weapon.  
+    </p><p>
+        Everytime such an altercation takes place, the officer writes a self-report of the incident. 
+        These reports are included in the Invisible Institute dataset.  
+    </p><p>
+        The data below contains all use of force and weapon reports from 2004 to mid-2016 for all officers employeed by the CPD in 2016. I have additionally excluded officers that are still in recruit training, given that they are not representative of the broader police force.     
+    </p>
+    <center>
+    <h3>Percent of Police Using of Force and Weapons</h3>
+    <h2>Per 100 Officers:</h2>
+    
+    <div class="flex-container">
+        <div id="force_off" class="flex-item">
+            <h3>73 reported using force...</h3>
+        </div>
+        <div id="force_civ" class="flex-item">
+            <h3>...on 1,066 civilians</h3>
+        </div>
+    </div>
+    <div class="flex-container">
+        <div id="weapon_off" class="flex-item">
+            <h3>and 30 reported using a weapon...</h3>
+        </div>
+        <div id="weapon_civ" class="flex-item">
+            <h3>...on 90 civilians</h3>
 
-        </select>
-           </label>
-      </p>
+        </div>
+    </div>
+    <h2><i>The 12 thousand officers on the CPD roster have used force on 124 thousand civilians and weapons on 10 thousand civilians </i></h2>
+    </center>
+    <div class="background_grey">
+        <h1>Variable 3: Civilian and Departmental Complaints</h1>
+    </div>
+    <p>
+        Civilian and departmental complaints form the starting point at which the police officers consider the permisability of police actions. 
+        These complaints come in many forms. Officers can recieve departmental complaints for a uniform infraction or for using too much overtime. They can also recieve departmental complaints more more severe infractions.  
+    </p>
+        Civilian complaints are submitted for a wide range of issues. I manually categorized them into four bucket areas. 
+    </p>
+    <p>
+        This data includes all complaints submitted between 2000 and 2016, excluding officers that are still in recruit training. 
+    <p>
+    </p>
+    <center><h3>Percent of Officers Recieving a Complaint, by Complaint Type</h3>
+
+    <div id="pie_chart" class="container">
+    </div>
+    </center>
+    <div class="background_grey">
+        <h1>Data Exploration</h1>
+    </div>
+    <p>Now that you are familiar with the makeup and variables for measuring police violence, you can explore the data for yourself.
+        Try looking at different departments, and see how use of force versus civilian complaints are distributed across the department. 
+    </p><p>
+        You can see that, in most departments, a small number of officers use a force far more frequently than the rest of their department. 
+        However, these officers are not anomalies: this distribution of violence is consistent across departments. 
+        Additionally, the concentration of civilian and departmental complaints does not line up neatly with use of force frequency.
+    </p><p>
+    Thus, police violence cannot be soley attributed to individual "bad apples". Addressing police violence requires us acknowledge the variety and wide distribution of violence at the hands of the police.
+    </p>
+
+    <div class="flex-container">
+        <div id="legend" class="flex-item">
+            <h3> Explore Officers by Complaints Types</h3>
+            <label>
+                Department:
+                <select id="department">
+                  <option value="DISTRICT 007">DISTRICT 007</option>
+                  <option value="DISTRICT 006">DISTRICT 006 </option>        
+              </select>
+                 </label>
+            </p>
+          <p>
+              <label>
+              Size Variable:
+              <select id="bubble_variable">
+                  <option value="civ_complaint_count">Civilian Complaints</option>
+                  <!-- <option value="civ_complaint_per_year">Civilian Complaints per Year</option> -->
+                  <option value="civ_complaint_force">Civilian Complaints: Use of Force </option>
+                  <option value="civ_complaint_detain">Civilian Complaints: Arrest and Detainment</option>
+                  <option value="civ_complaint_hate">Civilian Complaints: Discriminatory or Verbal Abuse</option>
+                  <option value="civ_complaint_crime">Civilian Complaints: Criminal Activity</option>            
+                  <option value="dept_complaint_cleaned_count">Department Complaints: Severe</option>
+                  <!-- <option value="dept_complaint_cleaned_per_year">Department Complaints: Severe per Year</option> -->
+                  <option value="force_count">Officer-Reported Use of Force</option>
+                  <!-- <option value="force_count_per_year">Self-Reported Use of Force per Year</option> -->
+                  <option value="weapon_count">Officer-Reported Use of Weapon</option>
+              </select>
+              </label>
+            </p>        
+        </div>
+        <div id="bio" class="flex-item">
+            <h3>Click on Individual Officers to Learn More:</h3>
+            <p>
+                WIP.
+            </p>
+    
+        </div>
+        </div>
+    </div>
+
+    <!-- <div id="scatter" class="flex-item">
+        <h3>Number of Civilians: attacked with weapon</h3>
+        <p>
+            WIP.
+        </p> -->
+
+
     <div id="legend" class="container"></div>   
-    <h3> break:</h3>
     <div id="scatter" class="container">
     </div>
 
+    <!-- <script src="d3.v7.min.js.download"></script> -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="libs/d3-color-legend.js"></script>
+    <script src="matrix_dots.js"></script>
     <script src="bubble_plot.js"></script>
+    <script src="treemap.js"></script>
+    <script src="multi_ring.js"></script>
 
+        <!-- <p>
+        <label>
+        Department Cateogry:
+        <select id="department_category">           
+            <option value="ALL">ALL</option>
+            <option value="DISTRICT">DISTRICT</option>
+            <option value="DETECTIVE">DETECTIVE</option>
+            <option value="TRAINING">TRAINING (excludes trainees)</option>
+            <option value="TRANSPORT">TRANSPORT</option>
+            <option value="GANG">GANG</option>
+            <option value="NARCOTICS">NARCOTICS</option>
+            <option value="OTHER">OTHER</option>
+        </select>
+        </label>
+      </p> -->
 </body>
 </html>
