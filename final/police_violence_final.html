@@ -43,6 +43,7 @@
         Exploring Use of Force in the Chicago Police Department
     </h1></div>
     <p>
+
         Spurred by the magnitude of police killings of unarmed black civilians, America is reconning with violence at the hands of the police. This website gives you the opportunity to explore data on police violence yourself. 
     </p><p>
         This data was obtained from <a href="https://github.com/invinst/chicago-police-data">The Invisible Institute</a>, which sued the Chicago Police Department (CPD) to get these records released to the public. The data includes data on the police roster, police use of force, and civilian complaints through 2016.  
@@ -50,8 +51,9 @@
         This document will help you understand variables contained in this dataset, and prepare you to explore them using the followng bubble chart type: 
     </p>
     <center><h3>CPD Officers in District 1 by Use of Force</h3></center>
-    <h2>NEED ANNOTATIONS, fixing legend</h2>
+    <h2>ERRORS: NEED ANNOTATIONS, DATA REFRESH, FIX TOOLTIP ENTRIES</h2>
     <div id="legend_intro" class="container"></div>  
+    <div id="legend_intro2" class="container"></div>  
     <div id="scatter_intro" class="container"> </div>
     <div class="background_grey">
     <h1>Variable 1: Department</h1>
@@ -173,10 +175,7 @@
             </p>        
         </div>
         <div id="bio" class="flex-item">
-            <h3>Click on Individual Officers to Learn More:</h3>
-            <p>
-                WIP.
-            </p>
+            <!-- <h3>Click on Individual Officers to Learn More:</h3> -->
     
         </div>
         </div>
@@ -189,17 +188,25 @@
         </p> -->
 
 
-    <div id="legend" class="container"></div>   
+    <div id="legend2" class="container"></div>   
     <div id="scatter" class="container">
     </div>
 
     <!-- <script src="d3.v7.min.js.download"></script> -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="libs/d3-color-legend.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script> -->
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
+
     <script src="matrix_dots.js"></script>
     <script src="bubble_plot.js"></script>
     <script src="treemap.js"></script>
     <script src="multi_ring.js"></script>
+
+
+    
+    <!--  https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js-->
 
         <!-- <p>
         <label>

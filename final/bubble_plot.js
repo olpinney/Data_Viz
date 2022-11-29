@@ -8,7 +8,69 @@ function run_bubble_plot(){
 
 const height = 400,
 width = 700,
-margin = ({ top: 20, right: 40, bottom: 10, left: 80});
+margin = ({ top: 20, right: 40, bottom: 10, left: 120});
+
+
+function add_circle_legend(svg,data,legend_id,legend_title){
+
+  // size bubbles based on area
+  var maxSize = d3.max(data, d => d.size_var);
+  var size_bubble = d3.scaleSqrt()
+    .domain([-0.1, maxSize])  
+    .range([-0.1, height/25])  // This was set earlier in the code. 
+
+  var title_buffer = -5
+  var valuesToShow = [1, Math.round(maxSize/3), Math.round(maxSize)]
+  var xCircle = 20
+  var xLabel = xCircle + 20
+  var yCircle = margin.top + title_buffer
+
+  // svg = d3.select(legend_id) //fix here 
+  //   .append("svg")
+          
+  svg.append("text")
+    .attr("class", "title")
+    .attr("text-anchor", "start")
+    .attr("x", 0)
+    .attr("y", margin.top + title_buffer -5)
+    .style('font-size',10)
+    .text(legend_title)
+
+  svg
+    .selectAll("legend")
+    .data(valuesToShow)
+    .enter()
+    .append("circle")
+      .attr("cx", xCircle)
+      .attr("cy", function(d){ return yCircle + size_bubble(d) } )
+      .attr("r", function(d){ return size_bubble(d) })
+      .style("fill", "none")
+      .attr("stroke", "black")
+  
+  svg
+      .selectAll("legend")
+      .data(valuesToShow)
+      .enter()
+      .append("line")
+        .attr('x1', function(d){ return xCircle + size_bubble(d) } )
+        .attr('x2', xLabel)
+        .attr('y1', function(d){ return yCircle + size_bubble(d) } )
+        .attr('y2', function(d){ return yCircle + size_bubble(d) } )
+        .attr('stroke', 'black')
+        .style('stroke-dasharray', ('2,2'))
+    
+    // Add legend: bubbles
+    svg
+      .selectAll("legend")
+      .data(valuesToShow)
+      .enter()
+      .append("text")
+        .attr('x', xLabel)
+        .attr('y', function(d){ return yCircle + size_bubble(d)} )
+        .text( function(d){ return d } )
+        .style("font-size", 8)
+        .attr('alignment-baseline', 'middle')
+}
 
 //create the bubbles with animation attached
 function bubbleChart(svg) {
@@ -57,7 +119,7 @@ function bubbleChart(svg) {
   }
 
   // prepares data for visualisation and adds an svg element to the provided selector and starts the visualisation process
-  let chart = function chart(data_all,dept_selection,bubble_var_selection,legend_title) {
+  let chart = function chart(data_all,dept_selection,bubble_var_selection,legend_id,legend_title) {
     
     // remove old nodes from last chart
         // svg.selectAll('.bubble').remove()
@@ -84,6 +146,9 @@ function bubbleChart(svg) {
 
     console.log(data[0]["unit_description"])
 
+    add_circle_legend(svg,data,legend_id,legend_title)
+
+
     //create x axis
     let x = d3.scaleLinear()
       .domain(d3.extent(data, d => d.x_var))
@@ -106,64 +171,6 @@ function bubbleChart(svg) {
       .attr('stroke', 'purple');
 
 //modify the code so just resizing it, not deleting. d3 indepth transitions()
-
-    // size bubbles based on area
-    const maxSize = d3.max(data, d => d.size_var);
-    var size_bubble = d3.scaleSqrt()
-      .domain([-0.1, maxSize])  
-      .range([-0.1, height/20])  // This was set earlier  in the code. Do not change
-  
-    // Add legend: circles
-    // const title_buffer = 0
-    // var valuesToShow = [1, Math.round(maxSize/3), Math.round(maxSize)]
-    // var xCircle = margin.right
-    // var xLabel = margin.right+30
-    // var yCircle = margin.top + title_buffer
-
-    // svg
-    //   .selectAll("legend")
-    //   .data(valuesToShow)
-    //   .enter()
-    //   .append("circle")
-    //     .attr("cx", xCircle)
-    //     .attr("cy", function(d){ return yCircle + size_bubble(d) } )
-    //     .attr("r", function(d){ return size_bubble(d) })
-    //     .style("fill", "none")
-    //     .attr("stroke", "black")
-    
-    // svg
-    //     .selectAll("legend")
-    //     .data(valuesToShow)
-    //     .enter()
-    //     .append("line")
-    //       .attr('x1', function(d){ return xCircle + size_bubble(d) } )
-    //       .attr('x2', xLabel)
-    //       .attr('y1', function(d){ return yCircle + size_bubble(d) } )
-    //       .attr('y2', function(d){ return yCircle + size_bubble(d) } )
-    //       .attr('stroke', 'black')
-    //       .style('stroke-dasharray', ('2,2'))
-      
-    //   // Add legend: bubbles
-    //   svg
-    //     .selectAll("legend")
-    //     .data(valuesToShow)
-    //     .enter()
-    //     .append("text")
-    //       .attr('x', xLabel)
-    //       .attr('y', function(d){ return yCircle + size_bubble(d)} )
-    //       .text( function(d){ return d } )
-    //       .style("font-size", 8)
-    //       .attr('alignment-baseline', 'middle')
-            
-    // svg.append("text")
-    //         .attr("class", "x-label")
-    //         .attr("text-anchor", "start")
-    //         .attr("x", 1)
-    //         .attr("y", margin.top + title_buffer)
-    //         .attr("dx", "0.5em")
-    //         .attr("dy", "-0.5em") 
-    //         .style('font-size', d => 12)
-    //         .text(legend_title)
 
     // labels for bubbles
     labels = elements
@@ -192,119 +199,109 @@ function bubbleChart(svg) {
       .attr('x', d => d.x)
       .attr('y', d => d.y)
   }
+
   return chart;
 }
 
-function chart_create(chart_id,data_all,dept_selection,bubble_var_selection,legend_title){
-  //pick chart on html
-  
+function chart_create(chart_id,data_all,dept_selection,bubble_var_selection,legend_id,legend_title){
   svg = d3.select(chart_id)
     .append("svg")
     .attr("viewBox", [0, 0, width, height]);
   let myBubbleChart = bubbleChart(svg);
-  myBubbleChart(data_all,dept_selection,bubble_var_selection,legend_title)
-  add_tooltip()
+  myBubbleChart(data_all,dept_selection,bubble_var_selection,legend_id,legend_title)
 }
 
-function chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_title){
-  //pick chart on html
+function chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_id,legend_title){
   svg = d3.select(chart_id)
-  // svg.selectAll("foreignObject").remove()
+  svg.selectAll("foreignObject").remove()
   svg.selectAll("g").remove()
+
+  console.log("trying to remove here") // this removal isnt working 
   
   svg = d3.select(chart_id)
     .append("svg")
     .attr("viewBox", [0, 0, width, height]);
   
   let myBubbleChart = bubbleChart(svg);
-  myBubbleChart(data_all,dept_selection,bubble_var_selection,legend_title)
-  add_tooltip()
+  myBubbleChart(data_all,dept_selection,bubble_var_selection,legend_id,legend_title)
 }
 
-function add_tooltip(){
-  //select other div 
-  
-  const tooltip = d3.select("body").append("div")
-      .attr("class", "svg-tooltip")
-  
+function add_tooltip(tooltip,bubble_var_selection){  
   d3.selectAll("circle")
-      .on("click", function(event, d) { // this event contains the position of the cursor. this is held in event.pageY          
-        d3.select(this).attr('stroke', 'grey')
-        tooltip
-          .style("visibility", "visible")
-          .html(`NAME: ${d.full_name} <br /> TENURE: ${-1 +d.force_count} YEAR(S) <br /> RANK: ${d.current_rank} <br /> INCIDENTS: ${d[bubble_var_selection+'_desc']}`);
-      })
-      .on("click", function(event) {
-        console.log("click worked here")
-        d3.select(this).attr('stroke', 'grey')
-          tooltip
-            .style("top", (event.pageY - 10) + "px")
-            .style("left", (event.pageX + 10) + "px");
-          // .style("top", (margin.top - 100))
-          // .style("left", (event.pageX + 10) + "px");
-
-        })
-        // .on("click", function() {
-        //   d3.select(this).attr("stroke", "purple");
-        //   tooltip.style("visibility", "hidden");
-        // })
+      .on("click", function(event,d) {
+        d3.selectAll("circle").attr('fill', d => color(d.color_var))
+        d3.select(this).attr('fill', 'grey')
+        tooltip.html("<p></p><h3>"+
+          "Officer Biography:</h3>"+`NAME: ${d.full_name} <br /> TENURE: ${-1 +d.force_count} YEAR(S) <br /> RANK: ${d.current_rank} <br /> INCIDENTS: {d[bubble_var_selection+'_desc']}`
+          )})
 }
+
 
 d3.json('data/departments_officers.json').then(data_all => {
   console.log(data_all)
   var dept_selection="DISTRICT 001" //modify this 
   var bubble_var_selection="civ_complaint_count"
   const x_axis_title="Self-Reported Use of Force Incidents"
-  const legend_title="Number of Civilian Complaints"
+  var legend_title="Number of Civilian Complaints"
   var data=[]
 
-
+//variables for legend
   color_list=["#feedde","#fdd0a2","#fdae6b","#fd8d3c","#e6550d"]
-  color = d3.scaleQuantize()
-  .domain([-19,81])
-  .range(color_list)
-  
-  //based on the 100 span domain for color above, create legend
-  quantile=20
+  color = d3.scaleQuantize().domain([-19,81]).range(color_list)
+  quantile=20 //based on the 100 span domain for color above
   quantile_span=["0","1-"+quantile, (quantile+1)+"-"+(2*quantile), (2*quantile+1)+"-"+(3*quantile), (3*quantile+1)+"+"]
 
-  d3.select("#legend_intro")
-  .node()
-  .appendChild(
-    Legend(
-      d3.scaleOrdinal(quantile_span,color_list),
-      { title: x_axis_title}
-    ))
-    //.append() // want to append an arrow here
+  legend_intro=Legend(d3.scaleOrdinal(quantile_span,color_list),{ title: x_axis_title, tickSize: 0})
+  legend=Legend(d3.scaleOrdinal(quantile_span,color_list),{ title: x_axis_title, tickSize: 0})
+  d3.select("#scatter_intro").node().appendChild(legend_intro) // why does this one not work, but the other one does?
+  d3.select("#scatter").node().appendChild(legend);
+  
+  const tooltip = d3.select("#bio").append("div")
+    .attr("class", "svg-tooltip")
+    .html("<p></p><h3>Click on Individual Officers to Learn More</h3>")
 
-  d3.select("#legend")
-  .node()
-  .appendChild(
-    Legend(
-      d3.scaleOrdinal(quantile_span,color_list),
-      { title: x_axis_title}
-    ));
-
-  var chart_id="#scatter_intro"
-  chart_create(chart_id,data_all,dept_selection,bubble_var_selection,legend_title)
-
-  chart_id="#scatter"
-  chart_create(chart_id,data_all,dept_selection,bubble_var_selection,legend_title)
+  chart_create("#scatter_intro",data_all,dept_selection,bubble_var_selection,"#scatter_intro",legend_title)
+  chart_create("#scatter",data_all,dept_selection,bubble_var_selection,"#scatter",legend_title)
 
   //Listeners
+  add_tooltip(tooltip,bubble_var_selection)
   d3.select("#department")  
       .on("change", function (event) {
           dept_selection = event.target.value;
-      chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_title)
+      chart_update("#scatter",data_all,dept_selection,bubble_var_selection,"#scatter",legend_title)
+      add_tooltip(tooltip,bubble_var_selection)
       });
 
-  d3.select("#bubble_variable") //make sure it is targetting specific button 
+  d3.select("#bubble_variable") 
       .on("change", function (event) {
           bubble_var_selection = event.target.value;
-      chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_title)
+      chart_update("#scatter",data_all,dept_selection,bubble_var_selection,"#scatter",legend_title)
+      add_tooltip(tooltip,bubble_var_selection)
       });
 
 });
 
 }
 run_bubble_plot()
+
+
+//The annotations still are not working 
+
+console.log("here the annotation is")           
+const annotations = [
+  {
+    note: { label: "Hi" },
+    x: 100,
+    y: 100,
+    dy: 137,
+    dx: 162,
+    subject: { radius: 50, radiusPadding: 10 },
+  },
+];
+
+const makeAnnotations = d3.annotation()
+  .annotations(annotations)
+
+d3.select("scatter_intro")
+  .append("g")
+  .call(makeAnnotations)

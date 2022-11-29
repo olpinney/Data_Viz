@@ -134,6 +134,7 @@ function Legend(color, {
           .tickFormat(typeof tickFormat === "function" ? tickFormat : undefined)
           .tickSize(tickSize)
           .tickValues(tickValues))
+          .attr("font-size",14)
         .call(tickAdjust)
         .call(g => g.select(".domain").remove())
         .call(g => g.append("text")
@@ -141,8 +142,8 @@ function Legend(color, {
           .attr("y", marginTop + marginBottom - height - 6)
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
           .attr("class", "title")
+          .attr("font-size",20)
           .text(title));
   
     return svg.node();
