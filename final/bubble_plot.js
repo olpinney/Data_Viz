@@ -114,56 +114,56 @@ function bubbleChart(svg) {
       .range([-0.1, height/20])  // This was set earlier  in the code. Do not change
   
     // Add legend: circles
-    const title_buffer = 0
-    var valuesToShow = [1, Math.round(maxSize/3), Math.round(maxSize)]
-    var xCircle = margin.right
-    var xLabel = margin.right+30
-    var yCircle = margin.top + title_buffer
+    // const title_buffer = 0
+    // var valuesToShow = [1, Math.round(maxSize/3), Math.round(maxSize)]
+    // var xCircle = margin.right
+    // var xLabel = margin.right+30
+    // var yCircle = margin.top + title_buffer
 
-    svg
-      .selectAll("legend")
-      .data(valuesToShow)
-      .enter()
-      .append("circle")
-        .attr("cx", xCircle)
-        .attr("cy", function(d){ return yCircle + size_bubble(d) } )
-        .attr("r", function(d){ return size_bubble(d) })
-        .style("fill", "none")
-        .attr("stroke", "black")
+    // svg
+    //   .selectAll("legend")
+    //   .data(valuesToShow)
+    //   .enter()
+    //   .append("circle")
+    //     .attr("cx", xCircle)
+    //     .attr("cy", function(d){ return yCircle + size_bubble(d) } )
+    //     .attr("r", function(d){ return size_bubble(d) })
+    //     .style("fill", "none")
+    //     .attr("stroke", "black")
     
-    svg
-        .selectAll("legend")
-        .data(valuesToShow)
-        .enter()
-        .append("line")
-          .attr('x1', function(d){ return xCircle + size_bubble(d) } )
-          .attr('x2', xLabel)
-          .attr('y1', function(d){ return yCircle + size_bubble(d) } )
-          .attr('y2', function(d){ return yCircle + size_bubble(d) } )
-          .attr('stroke', 'black')
-          .style('stroke-dasharray', ('2,2'))
+    // svg
+    //     .selectAll("legend")
+    //     .data(valuesToShow)
+    //     .enter()
+    //     .append("line")
+    //       .attr('x1', function(d){ return xCircle + size_bubble(d) } )
+    //       .attr('x2', xLabel)
+    //       .attr('y1', function(d){ return yCircle + size_bubble(d) } )
+    //       .attr('y2', function(d){ return yCircle + size_bubble(d) } )
+    //       .attr('stroke', 'black')
+    //       .style('stroke-dasharray', ('2,2'))
       
-      // Add legend: bubbles
-      svg
-        .selectAll("legend")
-        .data(valuesToShow)
-        .enter()
-        .append("text")
-          .attr('x', xLabel)
-          .attr('y', function(d){ return yCircle + size_bubble(d)} )
-          .text( function(d){ return d } )
-          .style("font-size", 8)
-          .attr('alignment-baseline', 'middle')
+    //   // Add legend: bubbles
+    //   svg
+    //     .selectAll("legend")
+    //     .data(valuesToShow)
+    //     .enter()
+    //     .append("text")
+    //       .attr('x', xLabel)
+    //       .attr('y', function(d){ return yCircle + size_bubble(d)} )
+    //       .text( function(d){ return d } )
+    //       .style("font-size", 8)
+    //       .attr('alignment-baseline', 'middle')
             
-    svg.append("text")
-            .attr("class", "x-label")
-            .attr("text-anchor", "start")
-            .attr("x", 1)
-            .attr("y", margin.top + title_buffer)
-            .attr("dx", "0.5em")
-            .attr("dy", "-0.5em") 
-            .style('font-size', d => 12)
-            .text(legend_title)
+    // svg.append("text")
+    //         .attr("class", "x-label")
+    //         .attr("text-anchor", "start")
+    //         .attr("x", 1)
+    //         .attr("y", margin.top + title_buffer)
+    //         .attr("dx", "0.5em")
+    //         .attr("dy", "-0.5em") 
+    //         .style('font-size', d => 12)
+    //         .text(legend_title)
 
     // labels for bubbles
     labels = elements
@@ -208,12 +208,14 @@ function chart_create(chart_id,data_all,dept_selection,bubble_var_selection,lege
 
 function chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_title){
   //pick chart on html
-  // svg = d3.select(chart_id)
-  //    .remove("svg")
+  svg = d3.select(chart_id)
+  // svg.selectAll("foreignObject").remove()
+  svg.selectAll("g").remove()
   
   svg = d3.select(chart_id)
     .append("svg")
     .attr("viewBox", [0, 0, width, height]);
+  
   let myBubbleChart = bubbleChart(svg);
   myBubbleChart(data_all,dept_selection,bubble_var_selection,legend_title)
   add_tooltip()
@@ -253,7 +255,7 @@ d3.json('data/departments_officers.json').then(data_all => {
   var dept_selection="DISTRICT 001" //modify this 
   var bubble_var_selection="civ_complaint_count"
   const x_axis_title="Self-Reported Use of Force Incidents"
-  var legend_title="Number of Civilian Complaints"
+  const legend_title="Number of Civilian Complaints"
   var data=[]
 
 
@@ -266,7 +268,7 @@ d3.json('data/departments_officers.json').then(data_all => {
   quantile=20
   quantile_span=["0","1-"+quantile, (quantile+1)+"-"+(2*quantile), (2*quantile+1)+"-"+(3*quantile), (3*quantile+1)+"+"]
 
-  d3.select("#legend_color")
+  d3.select("#legend_intro")
   .node()
   .appendChild(
     Legend(
@@ -274,9 +276,8 @@ d3.json('data/departments_officers.json').then(data_all => {
       { title: x_axis_title}
     ))
     //.append() // want to append an arrow here
-    ;
 
-    d3.select("#legend")
+  d3.select("#legend")
   .node()
   .appendChild(
     Legend(
@@ -288,7 +289,6 @@ d3.json('data/departments_officers.json').then(data_all => {
   chart_create(chart_id,data_all,dept_selection,bubble_var_selection,legend_title)
 
   chart_id="#scatter"
-  legend_title="Size Variable"
   chart_create(chart_id,data_all,dept_selection,bubble_var_selection,legend_title)
 
   //Listeners

@@ -1,5 +1,7 @@
 /* D3 Pie Chart */
 
+function run_pie(){
+
 d3.json("a3cleanedonly2015.json").then(data => {
     // Always start by console.logging the data
     console.log(data);
@@ -99,6 +101,6 @@ function createRing({ Race, Values, Denom}) {
       .text(Race)
       .style("font-size", 20);
 
-  }
+  }}
 
-   
+run_pie()
