@@ -1,26 +1,5 @@
-// const height = 400,
-//     width = 600,
-//     margin = ({ top: 25, right: 10, bottom: 50, left: 10 }),
-//     padding = 1;
-
-// const svg = d3.select("#force_off")
-//     .append("svg")
-//     .attr("viewBox", [0, 0, width, height]);
-
-// d3.json('data/total_force.json').then((data) => {      
-//     console.log(data)
-// });
-
-
-
-
-/* D3 Pie Chart */
-// how do i put the title on the top, not the middle 
-// how do i make yes and no constant colors
-// how do I prevent from sorting 
 
 d3.json("data/percent_cat.json").then(data => {
-    // d3.json("a3cleanedonly2015.json").then(data => {
       console.log(data)
       var dept_selection = "ALL"
     

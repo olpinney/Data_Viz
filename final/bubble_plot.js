@@ -1,8 +1,9 @@
 //code from here:https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7abubbleChart
 
 //problems with the code:
-// adding the tooltip
 // deleting the object when refreshing the data 
+// annotations
+
 
 function run_bubble_plot(){
 
@@ -168,7 +169,7 @@ function bubbleChart(svg) {
       .classed('bubble', true)
       .attr('r', d => d.radius)
       .attr('fill', d => color(d.color_var))
-      .attr('stroke', 'purple');
+      .attr('stroke', 'grey');
 
 //modify the code so just resizing it, not deleting. d3 indepth transitions()
 
@@ -212,9 +213,10 @@ function chart_create(chart_id,data_all,dept_selection,bubble_var_selection,lege
 }
 
 function chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_id,legend_title){
-  svg = d3.select(chart_id)
-  svg.selectAll("foreignObject").remove()
-  svg.selectAll("g").remove()
+  d3.select(chart_id).selectAll("svg").remove();
+  // svg = d3.select(chart_id)
+  // svg.selectAll("foreignObject").remove()
+  // svg.selectAll("g").remove()
 
   console.log("trying to remove here") // this removal isnt working 
   
@@ -232,7 +234,7 @@ function add_tooltip(tooltip,bubble_var_selection){
         d3.selectAll("circle").attr('fill', d => color(d.color_var))
         d3.select(this).attr('fill', 'grey')
         tooltip.html("<p></p><h3>"+
-          "Officer Biography:</h3>"+`NAME: ${d.full_name} <br /> TENURE: ${-1 +d.force_count} YEAR(S) <br /> RANK: ${d.current_rank} <br /> INCIDENTS: {d[bubble_var_selection+'_desc']}`
+          "Officer Biography:</h3>"+`NAME: ${d.full_name} <br /> TENURE: ${-1 +d.force_count} YEAR(S) <br /> RANK: ${d.current_rank} <br /> INCIDENTS: ${d[bubble_var_selection+'_desc']}`
           )})
 }
 

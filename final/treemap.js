@@ -20,7 +20,7 @@ d3.json('data/departments_tree.json').then(data => {
     const treemap_dept = data => d3.treemap()
       (d3.hierarchy(data)
         .sum(d => d.value)
-        .sort((a, b) => b.value_not_other - a.value_not_other));
+        );
   
     console.log(data)
     const x = d3.scaleLinear().rangeRound([margin.left, width-margin.right]);
@@ -53,22 +53,28 @@ d3.json('data/departments_tree.json').then(data => {
      
       gNode.append("rect")
         .attr("fill", d => d.data.color)
-        .attr("stroke", "#fff");
-      console.log("here6")
-  
+        .attr("stroke", "#fff")
+        // .attr("opacity",0.8)
+
+        console.log("look here")
+        console.log(node.ancestors().reverse().map(d => d.data.name))
+        console.log(node.ancestors().map(d=> d.value))
+        console.log("look here")
+
+
       gNode.append("text")
-        .append("tspan")
+        .append("tspan") /// THIS IS HARD TO BREAK
         .attr("x", 3)
         .attr("y", "1.1em")
-        .attr("font-weight", "bold")
-        .attr('font-size', d => 8) //*d.percent_value this didnt work
+        .attr("font-weight", "bold") 
+        .attr('font-size',d => Math.min(8,Math.ceil(300*(+d.value)/(+d.ancestors().map(d=> d.value)[1]))))
+        // .text(d => (+d.ancestors().map(d=> d.value)[1]))
         .text(d => d.data.name)
         .append("tspan")
         .attr("x", 3)
         .attr("y", "2.3em")
         .attr("font-weight", "normal")
-        //.attr('font-size',8)
-        .text(d => format(d.value));
+        .text(d => format(d.value)+" officers");
   
       group.call(position);
     }

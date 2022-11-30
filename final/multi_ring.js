@@ -5,7 +5,6 @@ d3.json("data/percent_cat.json").then(data => {
   var dept_selection = "ALL"
 
   for (let d of data[dept_selection]) {
-    console.log(d)
     createRing(d)
   }
 });
