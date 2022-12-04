@@ -4,7 +4,7 @@
 function Legend(color, {
     title,
     tickSize = 6,
-    width = 320, 
+    width = 300, 
     height = 44 + tickSize,
     marginTop = 18,
     marginRight = 0,
@@ -143,7 +143,7 @@ function Legend(color, {
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
           .attr("class", "title")
-          .attr("font-size",20)
+          .attr("font-size",16)
           .text(title));
   
     return svg.node();

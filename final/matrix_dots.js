@@ -41,6 +41,8 @@ d3.json('data/total_force.json').then((data) => {
 
         console.log(height_edit)
 
+        // This top piece lets the user set a second color group to appear first.
+        // This part of the code isnt currently utilized
         svg.append("g")
             .attr("fill", color)
             .attr("stroke","#D3D3D3")
@@ -66,12 +68,15 @@ d3.json('data/total_force.json').then((data) => {
 
     colors=["#a63603","#D3D3D3","#e6550d","#fd8d3c","#fdae6b","#fdd0a2","#feedde"]
 
-    form_matrix("#force_off",w,dots_officers,num_officers,colors[2],0)
+    height = 800
+    width = 400,
+    form_matrix("#force_off",w,dots_officers,dots_officers,colors[2],0)
     form_matrix("#force_civ",w,dots_victims,dots_victims,colors[0],0)
 
     height = 100
-    form_matrix("#weapon_off",w,dots_officers_weapon,num_officers,colors[2],700)
+    form_matrix("#weapon_off",w,dots_officers_weapon,dots_officers_weapon,colors[2],700)
     form_matrix("#weapon_civ",w,dots_victims_weapon,dots_victims_weapon,colors[0],700)
+    form_matrix("#one_hundred",w,num_officers,num_officers,colors[4],700)
 
 });
 

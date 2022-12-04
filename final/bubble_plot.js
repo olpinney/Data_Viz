@@ -1,10 +1,5 @@
 //code from here:https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7abubbleChart
 
-//problems with the code:
-// deleting the object when refreshing the data 
-// annotations
-
-
 function run_bubble_plot(){
 
 const height = 400,
@@ -25,10 +20,7 @@ function add_circle_legend(svg,data,legend_id,legend_title){
   var xCircle = 20
   var xLabel = xCircle + 20
   var yCircle = margin.top + title_buffer
-
-  // svg = d3.select(legend_id) //fix here 
-  //   .append("svg")
-          
+      
   svg.append("text")
     .attr("class", "title")
     .attr("text-anchor", "start")
@@ -120,36 +112,11 @@ function bubbleChart(svg) {
   }
 
   // prepares data for visualisation and adds an svg element to the provided selector and starts the visualisation process
-  let chart = function chart(data_all,dept_selection,bubble_var_selection,legend_id,legend_title) {
-    
-    // remove old nodes from last chart
-        // svg.selectAll('.bubble').remove()
-        // svg.selectAll('text').remove()
-        // svg.selectAll('g').remove()
-        // svg.selectAll('legend').remove()
-        // svg.selectAll('line').remove()
-        // svg.selectAll('circle').remove()
-
-    //Select data  from broader dataset
-    for (let i=0; i<data_all.length;i++) {
-      if (data_all[i].unit_description==dept_selection){
-          data=data_all[i].officers
-          break 
-      }
-    }
-
-    for (let d of data){
-    d.size_var=+d[bubble_var_selection]
-    d.x_var=+d.force_count+d.weapon_count
-    //+d[x_var_selection],
-    d.color_var=+d.x_var  //got rid of color for now
-    }
-
-    console.log(data[0]["unit_description"])
+  let chart = function chart(data,dept_selection,bubble_var_selection,legend_id,legend_title) {
 
     add_circle_legend(svg,data,legend_id,legend_title)
 
-
+    data
     //create x axis
     let x = d3.scaleLinear()
       .domain(d3.extent(data, d => d.x_var))
@@ -163,15 +130,15 @@ function bubbleChart(svg) {
       .data(nodes, d => d.id)
       .enter()
       .append('g')
+        .attr("id","officer-bubble")
 
     bubbles = elements
       .append('circle')
       .classed('bubble', true)
+      .attr('id','the_bubble')
       .attr('r', d => d.radius)
       .attr('fill', d => color(d.color_var))
       .attr('stroke', 'grey');
-
-//modify the code so just resizing it, not deleting. d3 indepth transitions()
 
     // labels for bubbles
     labels = elements
@@ -186,9 +153,7 @@ function bubbleChart(svg) {
     simulation.nodes(nodes)
       .on('tick', ticked)
       .restart();
-      //this is where I would control the timing  
   }
-
   // callback function called after every tick of the force simulation
   // here we do the actual repositioning of the circles based on current x and y value of their bound node data
   function ticked() {
@@ -214,96 +179,129 @@ function chart_create(chart_id,data_all,dept_selection,bubble_var_selection,lege
 
 function chart_update(chart_id,data_all,dept_selection,bubble_var_selection,legend_id,legend_title){
   d3.select(chart_id).selectAll("svg").remove();
-  // svg = d3.select(chart_id)
-  // svg.selectAll("foreignObject").remove()
-  // svg.selectAll("g").remove()
-
-  console.log("trying to remove here") // this removal isnt working 
-  
   svg = d3.select(chart_id)
     .append("svg")
+    .attr("id","view-scatter")
     .attr("viewBox", [0, 0, width, height]);
-  
   let myBubbleChart = bubbleChart(svg);
   myBubbleChart(data_all,dept_selection,bubble_var_selection,legend_id,legend_title)
 }
 
-function add_tooltip(tooltip,bubble_var_selection){  
-  d3.selectAll("circle")
-      .on("click", function(event,d) {
-        d3.selectAll("circle").attr('fill', d => color(d.color_var))
-        d3.select(this).attr('fill', 'grey')
-        tooltip.html("<p></p><h3>"+
-          "Officer Biography:</h3>"+`NAME: ${d.full_name} <br /> TENURE: ${-1 +d.force_count} YEAR(S) <br /> RANK: ${d.current_rank} <br /> INCIDENTS: ${d[bubble_var_selection+'_desc']}`
-          )})
-}
-
-
+//load the data and run the code
 d3.json('data/departments_officers.json').then(data_all => {
   console.log(data_all)
-  var dept_selection="DISTRICT 001" //modify this 
+  
+  //clean data
+  var dept_selection="DISTRICT 001" 
   var bubble_var_selection="civ_complaint_count"
-  const x_axis_title="Self-Reported Use of Force Incidents"
-  var legend_title="Number of Civilian Complaints"
   var data=[]
 
-//variables for legend
+  //Select data from broader dataset
+  for (let i=0; i<data_all.length;i++) {
+    if (data_all[i].unit_description==dept_selection){
+        data=data_all[i].officers
+        break}}
+
+  for (let d of data){
+  d.size_var=+d[bubble_var_selection]
+  d.x_var=+d.force_count+d.weapon_count
+  d.color_var=+d.x_var
+  }
+  
+  //variables for legend
+  const x_axis_title="Self-Reported Use of Force Incidents:"
+  var legend_title="Number of Civilian Complaints"
   color_list=["#feedde","#fdd0a2","#fdae6b","#fd8d3c","#e6550d"]
   color = d3.scaleQuantize().domain([-19,81]).range(color_list)
   quantile=20 //based on the 100 span domain for color above
   quantile_span=["0","1-"+quantile, (quantile+1)+"-"+(2*quantile), (2*quantile+1)+"-"+(3*quantile), (3*quantile+1)+"+"]
 
+  //add legends to all charts
   legend_intro=Legend(d3.scaleOrdinal(quantile_span,color_list),{ title: x_axis_title, tickSize: 0})
   legend=Legend(d3.scaleOrdinal(quantile_span,color_list),{ title: x_axis_title, tickSize: 0})
   d3.select("#scatter_intro").node().appendChild(legend_intro) // why does this one not work, but the other one does?
-  d3.select("#scatter").node().appendChild(legend);
-  
+  d3.select("#legend").node().appendChild(legend);
+    
   const tooltip = d3.select("#bio").append("div")
     .attr("class", "svg-tooltip")
+    .attr("id","scrolling")
     .html("<p></p><h3>Click on Individual Officers to Learn More</h3>")
+    .style("height","200px")
+    .style("overflow-y","scroll")
+    .style("font-size","0.8rem")
 
-  chart_create("#scatter_intro",data_all,dept_selection,bubble_var_selection,"#scatter_intro",legend_title)
-  chart_create("#scatter",data_all,dept_selection,bubble_var_selection,"#scatter",legend_title)
+  //create the intro chart
+  chart_create("#scatter_intro",data,dept_selection,bubble_var_selection,"#scatter_intro",legend_title)
+
+  var legend_title="Size Variable"
+  chart_create("#scatter",data,dept_selection,bubble_var_selection,"#scatter",legend_title)
 
   //Listeners
+  var clicked_officer
+  var clicked_officer_bool
+
+  function add_tooltip(tooltip,bubble_var_selection){  
+    d3.selectAll("#officer-bubble")
+        .on("click", function(event,d) {
+          d3.selectAll("circle").attr('fill', d => color(d.color_var))
+          d3.select(this).select("#the_bubble").attr('fill', 'grey')
+          document.getElementById('scrolling').scrollTop =0;
+          clicked_officer=d
+          clicked_officer_bool=true
+          tooltip.html("<p></p><h3>"+
+            "Officer Biography:</h3>"+`NAME: ${d.full_name}<br /> RANK: ${d.current_rank} <br /> START DATE: ${d.appointed_date} <br /> TENURE: ${+d.years_in_2016-1} YEAR(S)<br /> INCIDENTS: ${d[bubble_var_selection+'_desc_list']}`
+            )
+          })          
+  }
+
   add_tooltip(tooltip,bubble_var_selection)
   d3.select("#department")  
       .on("change", function (event) {
           dept_selection = event.target.value;
-      chart_update("#scatter",data_all,dept_selection,bubble_var_selection,"#scatter",legend_title)
+      
+      clicked_officer_bool=false
+
+      //Select data from broader dataset
+      for (let i=0; i<data_all.length;i++) {
+        if (data_all[i].unit_description==dept_selection){
+            data=data_all[i].officers
+            break}}
+
+      for (let d of data){
+      d.size_var=+d[bubble_var_selection]
+      d.x_var=+d.force_count+d.weapon_count
+      d.color_var=+d.x_var
+      }
+      chart_update("#scatter",data,dept_selection,bubble_var_selection,"#scatter",legend_title)
       add_tooltip(tooltip,bubble_var_selection)
+      tooltip.html("<p></p><h3>Click on Individual Officers to Learn More</h3>")      
       });
 
   d3.select("#bubble_variable") 
       .on("change", function (event) {
           bubble_var_selection = event.target.value;
-      chart_update("#scatter",data_all,dept_selection,bubble_var_selection,"#scatter",legend_title)
+
+      for (let d of data){
+        d.size_var=+d[bubble_var_selection]
+        }
+      chart_update("#scatter",data,dept_selection,bubble_var_selection,"#scatter",legend_title)
+      
+      if (clicked_officer_bool==true){
+        tooltip.html("<p></p><h3>"+"Officer Biography:</h3>"+`NAME: ${clicked_officer.full_name}<br /> RANK: ${clicked_officer.current_rank} <br /> START DATE: ${clicked_officer.appointed_date} <br /> TENURE: ${+clicked_officer.years_in_2016-1} YEAR(S)<br /> INCIDENTS: ${clicked_officer[bubble_var_selection+'_desc_list']}`)
+      }
+      else{
+        tooltip.html("<p></p><h3>Click on Individual Officers to Learn More</h3>") 
+      }
       add_tooltip(tooltip,bubble_var_selection)
       });
-
 });
 
 }
 run_bubble_plot()
 
 
-//The annotations still are not working 
 
-console.log("here the annotation is")           
-const annotations = [
-  {
-    note: { label: "Hi" },
-    x: 100,
-    y: 100,
-    dy: 137,
-    dx: 162,
-    subject: { radius: 50, radiusPadding: 10 },
-  },
-];
 
-const makeAnnotations = d3.annotation()
-  .annotations(annotations)
 
-d3.select("scatter_intro")
-  .append("g")
-  .call(makeAnnotations)
+  
+

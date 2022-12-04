@@ -51,14 +51,20 @@
         This document will help you understand variables contained in this dataset, and prepare you to explore them using the followng bubble chart type: 
     </p>
     <center><h3>CPD Officers in District 1 by Use of Force</h3></center>
-    <h2>ERRORS: NEED ANNOTATIONS, LEGEND RE-ADD SO IT SCALES, FIX TOOLTIP ENTRIES, ADD OTHER DISTRICTS TO LIST</h2>
-    <div id="legend_intro" class="container"></div>  
-    <div id="legend_intro2" class="container"></div>  
     <div id="scatter_intro" class="container"> </div>
+    <p>In the chart above, we can see that a small number of officers use force and weapons with disproportionate frequency. 
+        For example, officers Hansen and Osborn have both reported using force over 60 times - with Hansen reporting the greatest number of incidents in his department.
+        <p></p>
+        On the other hand, there are many officers who have never reported using force or a weapon, with the majority of officers reporting 1-20 incidents of force or weapon usage. </p>
+    <p>The theory of bad-apple policing suggests that the majority of aggregious police violence is perpetuated by a few outlier cops; 
+        however, this narrative is overly simplistic. This visualization techniques lets the reader explore the ways in which police violence fails to fall neatly along this dimension of a few violent cops and cops which do not enact violence. </p>
+
+    <p>Before you begin exploring the data, I will teach you about the various  </p>
+
+
     <div class="background_grey">
     <h1>Variable 1: Department</h1>
     </div>
-    <h1>GANG INVESTIGATION</h1>
     
     <p>
         We often talk about police officers as a monolith, but this is not the case. 
@@ -87,9 +93,15 @@
     </p><p>
         The data below contains all use of force and weapon reports from 2004 to mid-2016 for all officers employeed by the CPD in 2016. I have additionally excluded officers that are still in recruit training, given that they are not representative of the broader police force.     
     </p>
-    <center>
-    <h3>Percent of Police Using of Force and Weapons</h3>
-    <h2>Per 100 Officers:</h2>
+    
+    <center><h2>Percent of Police that Used Force or Weapons between 2004-2016</h2>
+    <div class="flex-container">
+        <div id="one_hundred" class="flex-item">
+            <h3>Per 100 Officers in the CPD in 2016</h3>
+        </div>
+        <div class="flex-item">
+        </div>
+    </div>
     
     <div class="flex-container">
         <div id="force_off" class="flex-item">
@@ -108,7 +120,7 @@
 
         </div>
     </div>
-    <h2><i>The 12 thousand officers on the CPD roster have used force on 124 thousand civilians and weapons on 10 thousand civilians </i></h2>
+    <h2><i> CPD employeed 12 thousand officers in 2016. Over the prior 12 years, these officers used force on 124 thousand civilians and weapons on 10 thousand civilians </i></h2>
     </center>
     <div class="background_grey">
         <h1>Variable 3: Civilian and Departmental Complaints</h1>
@@ -153,8 +165,85 @@
             <label>
                 Department:
                 <select id="department">
-                  <option value="DISTRICT 007">DISTRICT 007</option>
-                  <option value="DISTRICT 006">DISTRICT 006 </option>        
+                    <option value="DISTRICT 001">District: 001 Central</option>
+                    <option value="DISTRICT 002">District: 002 Wentworth</option>
+                    <option value="DISTRICT 003">District: 003 Grand Crossing</option>
+                    <option value="DISTRICT 004">District: 004 South Chicago</option>
+                    <option value="DISTRICT 005">District: 005 Calumet</option>
+                    <option value="DISTRICT 006">District: 006 Gresham</option>
+                    <option value="DISTRICT 007">District: 007 Englewood</option>
+                    <option value="DISTRICT 008">District: 008 Chicago Lawn</option>
+                    <option value="DISTRICT 009">District: 009 Deering</option>
+                    <option value="DISTRICT 010">District: 010 Ogden</option>
+                    <option value="DISTRICT 011">District: 011 Harrison</option>
+                    <option value="DISTRICT 012">District: 012 Near West</option>
+                    
+                    <option value="DISTRICT 014">District: 014 Shakespeare</option>
+                    <option value="DISTRICT 015">District: 015 Austin</option>
+                    <option value="DISTRICT 016">District: 016 Jefferson Park</option>
+                    <option value="DISTRICT 017">District: 017 Albany Park</option>
+                    <option value="DISTRICT 018">District: 018 Near North</option>
+                    <option value="DISTRICT 019">District: 019 Town Hall</option>
+                    <option value="DISTRICT 020">District: 020 Lincoln</option>
+                    <option value="DISTRICT 022">District: 022 Morgan Park</option>
+                    
+                    <option value="DISTRICT 024">District: 024 Rogers Park</option>
+                    <option value="DISTRICT 025">District: 025 Grand Central</option>
+                    <option value="BUREAU OF  DETECTIVES">Detective: Bureau Of  Detectives</option>
+                    <option value="DETECTIVE AREA - CENTRAL">Detective: Area - Central</option>
+                    <option value="DETECTIVE AREA - NORTH">Detective: Area - North</option>
+                    <option value="DETECTIVE AREA - SOUTH">Detective: Area - South</option>
+                    
+                    <option value="SPECIAL INVESTIGATIONS UNIT">Detective: Special Investigations</option>
+                    <option value="EDUCATION AND TRAINING DIVISION">Training: Education & Training</option>
+                    <option value="RECRUIT TRAINING SECTION">Training: Recruit Training Section</option>
+                    <option value="AIRPORT LAW ENFORCEMENT SECTION - NORTH">Transport: Airport Law Enf. - North</option>
+                    <option value="AIRPORT LAW ENFORCEMENT SECTION - SOUTH">Transport: Airport Law Enf. - South</option>
+                    <option value="PUBLIC TRANSPORTATION SECTION">Transport: Public Transportation</option>
+                    
+                    
+                    <option value="TRAFFIC SECTION">Transport: Traffic Section</option>
+                    
+                    <option value="TRANSIT SECURITY UNIT">Transport: Transit Security</option>
+                    <option value="GANG ENFORCEMENT - AREA CENTRAL">Gang Enforcement: Area Central</option>
+                    <option value="GANG ENFORCEMENT - AREA NORTH">Gang Enforcement: Area North</option>
+                    <option v alue="GANG ENFORCEMENT - AREA SOUTH">Gang Enforcement: Area South</option>
+                    <option value="GANG ENFORCEMENT DIVISION">Gang Enforcement: Enf. Division</option>
+                    <option value="GANG INVESTIGATION DIVISION">Gang Enforcement: Investigation</option>
+                    
+                    <option value="ALTERNATE RESPONSE SECTION">Other: Alternate Response Section</option>
+                    <option value="ARSON SECTION">Other: Arson Section</option>
+                    <option value="ASSET FORFEITURE INVESTIGATION SECTION">Other: Asset Forfeit. Investigation</option>
+                    <option value="BOMB AND ARSON DIVISION">Other: Bomb & Arson Division</option>
+                    <option value="BOMB SQUAD">Other: Bomb Squad</option>
+                    <option value="BUREAU OF INTERNAL AFFAIRS">Other: Bureau Of Internal Affairs</option>
+                    <option value="BUREAU OF ORGANIZED CRIME">Other: Bureau Of Organized Crime</option>
+                    <option value="BUREAU OF PATROL">Other: Bureau Of Patrol</option>
+                    <option value="CANINE UNIT">Other: Canine Unit</option>
+                    <option value="CENTRAL DETENTION UNIT">Other: Central Detention Unit</option>
+                    <option value="CENTRAL INVESTIGATIONS DIVISION">Other: Central Investigations</option>
+                    <option value="DEPLOYMENT OPERATIONS CENTER">Other: Deployment Operations</option>
+                    <option value="DETACHED SERVICES - GOVERMENT SECURITY">Other: Detached - Goverment Security</option>
+                    <option value="DETACHED SERVICES - MISCELLANEOUS DETAIL">Other: Detached - Misc. Detail</option>
+                    <option value="EVIDENCE AND RECOVERED PROPERTY SECTION">Other: Evidence & Recovered Prop.</option>
+                    <option value="EXECUTIVE OFFICERS UNIT">Other: Executive Officers</option>
+                    <option value="FIELD SERVICES SECTION">Other: Field Services Section</option>
+                    <option value="FORENSIC SERVICES DIVISION">Other: Forensic Services</option>
+                    <option value="FORENSIC SERVICES EVIDENCE TECHNICIAN SECTION">Other: Forensic Services Technician</option>
+                    <option value="HUMAN RESOURCES DIVISION">Other: Human Resources</option>
+                    <option value="INFORMATION SERVICES DIVISION">Other: Information Services</option>
+                    <option value="INSPECTION DIVISION">Other: Inspection</option>
+                    <option value="INTELLIGENCE SECTION">Other: Intelligence</option>
+                    <option value="JUVENILE INTERVENTION SUPPORT CENTER (JISC)">Other: Juvenile Intervention (Jisc)</option>
+                    <option value="MAJOR ACCIDENT INVESTIGATION UNIT">Other: Major Accident Investigation</option>
+                    <option value="MARINE OPERATIONS UNIT">Other: Marine Operations</option>
+                    <option value="MOUNTED UNIT">Other: Mounted Unit</option>
+                    <option value="NARCOTICS DIVISION">Other: Narcotics</option>                    
+                    <option value="SPECIAL WEAPONS AND TACTICS (SWAT) UNIT">Other: Special Wep. & Tactics (Swat)</option>
+                    <option value="VICE & ASSET FORFEITURE DIVISION">Other: Vice & Asset Forfeit.</option>
+                    <option value="YOUTH INVESTIGATION DIVISION">Other: Youth Investigation</option>
+                    
+
               </select>
                  </label>
             </p>
@@ -162,12 +251,12 @@
               <label>
               Size Variable:
               <select id="bubble_variable">
-                  <option value="civ_complaint_count">Civilian Complaints</option>
+                  <option value="civ_complaint_count">Civilian Complaints (CC)</option>
                   <!-- <option value="civ_complaint_per_year">Civilian Complaints per Year</option> -->
-                  <option value="civ_complaint_force">Civilian Complaints: Use of Force </option>
-                  <option value="civ_complaint_detain">Civilian Complaints: Arrest and Detainment</option>
-                  <option value="civ_complaint_hate">Civilian Complaints: Discriminatory or Verbal Abuse</option>
-                  <option value="civ_complaint_crime">Civilian Complaints: Criminal Activity</option>            
+                  <option value="civ_complaint_force">CC: Use of Force </option>
+                  <option value="civ_complaint_detain">CC: Arrest and Detainment</option>
+                  <option value="civ_complaint_hate">CC: Discriminatory or Verbal Abuse</option>
+                  <option value="civ_complaint_crime">CC: Criminal Activity</option>            
                   <option value="dept_complaint_cleaned_count">Department Complaints: Severe</option>
                   <!-- <option value="dept_complaint_cleaned_per_year">Department Complaints: Severe per Year</option> -->
                   <option value="force_count">Officer-Reported Use of Force</option>
@@ -182,16 +271,7 @@
     
         </div>
         </div>
-    </div>
-
-    <!-- <div id="scatter" class="flex-item">
-        <h3>Number of Civilians: attacked with weapon</h3>
-        <p>
-            WIP.
-        </p> -->
-
-
-    <div id="legend2" class="container"></div>   
+    </div> 
     <div id="scatter" class="container">
     </div>
 
