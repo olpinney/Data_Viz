@@ -51,6 +51,7 @@
         This document will help you understand variables contained in this dataset, and prepare you to explore them using the followng bubble chart type: 
     </p>
     <center><h3>CPD Officers in District 1 by Use of Force</h3></center>
+    <div id="legend_intro" class="container"> </div>
     <div id="scatter_intro" class="container"> </div>
     <p>In the chart above, we can see that a small number of officers use force and weapons with disproportionate frequency. 
         For example, officers Hansen and Osborn have both reported using force over 60 times - with Hansen reporting the greatest number of incidents in his department.
@@ -266,45 +267,18 @@
               </label>
             </p>        
         </div>
-        <div id="bio" class="flex-item">
-            <!-- <h3>Click on Individual Officers to Learn More:</h3> -->
-    
+        <div id="bio" class="flex-item">    
         </div>
         </div>
     </div> 
     <div id="scatter" class="container">
     </div>
 
-    <!-- <script src="d3.v7.min.js.download"></script> -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="libs/d3-color-legend.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script> -->
-    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
-
-
     <script src="matrix_dots.js"></script>
     <script src="bubble_plot.js"></script>
     <script src="treemap.js"></script>
     <script src="multi_ring.js"></script>
-
-
-    
-    <!--  https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js-->
-
-        <!-- <p>
-        <label>
-        Department Cateogry:
-        <select id="department_category">           
-            <option value="ALL">ALL</option>
-            <option value="DISTRICT">DISTRICT</option>
-            <option value="DETECTIVE">DETECTIVE</option>
-            <option value="TRAINING">TRAINING (excludes trainees)</option>
-            <option value="TRANSPORT">TRANSPORT</option>
-            <option value="GANG">GANG</option>
-            <option value="NARCOTICS">NARCOTICS</option>
-            <option value="OTHER">OTHER</option>
-        </select>
-        </label>
-      </p> -->
 </body>
 </html>

@@ -146,5 +146,26 @@ function Legend(color, {
           .attr("font-size",16)
           .text(title));
   
+//code added by OP for arrows      
+    svg.append("svg:defs").append("svg:marker")
+        .attr("id", "triangle")
+        .attr("refX", 6)
+        .attr("refY", 3)
+        .attr("markerWidth", 30)
+        .attr("markerHeight", 30)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M 0 0 6 3 0 6 0 3")
+        .style("fill", "black");
+    
+    svg.append("line")
+        .attr("x1", x)
+        .attr("y1", height-marginBottom)
+        .attr("x2", Math.max(0, x.bandwidth() - 1)*5 +30)
+        .attr("y2", height-marginBottom)          
+        .attr("stroke-width", 1)
+        .attr("stroke", "black")
+        .attr("marker-end", "url(#triangle)");
+
     return svg.node();
   }

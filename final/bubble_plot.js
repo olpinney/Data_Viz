@@ -209,7 +209,7 @@ d3.json('data/departments_officers.json').then(data_all => {
   }
   
   //variables for legend
-  const x_axis_title="Self-Reported Use of Force Incidents:"
+  const x_axis_title="Self-Reported Use of Force and Weapon Incidents:"
   var legend_title="Number of Civilian Complaints"
   color_list=["#feedde","#fdd0a2","#fdae6b","#fd8d3c","#e6550d"]
   color = d3.scaleQuantize().domain([-19,81]).range(color_list)
@@ -219,9 +219,10 @@ d3.json('data/departments_officers.json').then(data_all => {
   //add legends to all charts
   legend_intro=Legend(d3.scaleOrdinal(quantile_span,color_list),{ title: x_axis_title, tickSize: 0})
   legend=Legend(d3.scaleOrdinal(quantile_span,color_list),{ title: x_axis_title, tickSize: 0})
-  d3.select("#scatter_intro").node().appendChild(legend_intro) // why does this one not work, but the other one does?
+  d3.select("#legend_intro").node().appendChild(legend_intro) // why does this one not work, but the other one does?
   d3.select("#legend").node().appendChild(legend);
     
+  
   const tooltip = d3.select("#bio").append("div")
     .attr("class", "svg-tooltip")
     .attr("id","scrolling")
@@ -249,7 +250,7 @@ d3.json('data/departments_officers.json').then(data_all => {
           clicked_officer=d
           clicked_officer_bool=true
           tooltip.html("<p></p><h3>"+
-            "Officer Biography:</h3>"+`NAME: ${d.full_name}<br /> RANK: ${d.current_rank} <br /> START DATE: ${d.appointed_date} <br /> TENURE: ${+d.years_in_2016-1} YEAR(S)<br /> INCIDENTS: ${d[bubble_var_selection+'_desc_list']}`
+            "Officer Biography:</h3>"+`NAME: ${d.full_name}<br /> RANK: ${d.current_rank} <br /> START DATE: ${d.appointed_date} <br /> TENURE: ${+d.years_in_2016-1} YEAR(S)<br /> USES OF FORCE OR WEAPON: ${+d.force_count+d.weapon_count} <br /><br /> INCIDENTS: ${+d[bubble_var_selection]} ${d[bubble_var_selection+'_desc_list']}`
             )
           })          
   }
@@ -287,16 +288,16 @@ d3.json('data/departments_officers.json').then(data_all => {
       chart_update("#scatter",data,dept_selection,bubble_var_selection,"#scatter",legend_title)
       
       if (clicked_officer_bool==true){
-        tooltip.html("<p></p><h3>"+"Officer Biography:</h3>"+`NAME: ${clicked_officer.full_name}<br /> RANK: ${clicked_officer.current_rank} <br /> START DATE: ${clicked_officer.appointed_date} <br /> TENURE: ${+clicked_officer.years_in_2016-1} YEAR(S)<br /> INCIDENTS: ${clicked_officer[bubble_var_selection+'_desc_list']}`)
+        tooltip.html("<p></p><h3>"+
+            "Officer Biography:</h3>"+`NAME: ${clicked_officer.full_name}<br /> RANK: ${clicked_officer.current_rank} <br /> START DATE: ${clicked_officer.appointed_date} <br /> TENURE: ${+clicked_officer.years_in_2016-1} YEAR(S)<br /> USES OF FORCE OR WEAPON: ${+clicked_officer.force_count+clicked_officer.weapon_count} <br /><br /> INCIDENTS: ${+clicked_officer[bubble_var_selection]} ${clicked_officer[bubble_var_selection+'_desc_list']}`
+            )
       }
       else{
         tooltip.html("<p></p><h3>Click on Individual Officers to Learn More</h3>") 
       }
       add_tooltip(tooltip,bubble_var_selection)
       });
-});
-
-}
+})}
 run_bubble_plot()
 
 

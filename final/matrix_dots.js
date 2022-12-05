@@ -14,17 +14,7 @@ d3.json('data/total_force.json').then((data) => {
     var dots_officers_weapon = Math.round(+data[0]["weapon_count_persons_with"]*num_officers/data[0]["UID"])
     var dots_victims_weapon = Math.round(+data[0]["weapon_count"]*num_officers/data[0]["UID"])
 
-    // console.log("for website")
-    // console.log(data[0]["weapon_count_persons_with"])
-    // console.log(data[0]["weapon_count"])   
-    // // console.log(dots_officers)
-    // // console.log(dots_victims)
-    // console.log(dots_officers_weapon)
-    // console.log(dots_victims_weapon)
-    // console.log("done with website")
-
     var w = 25 //Math.ceil(Math.sqrt(dots_victims))
-    console.log(w) //15 or 
 
     let x = d3.scaleLinear()
         .domain([0, w]) 
@@ -51,7 +41,7 @@ d3.json('data/total_force.json').then((data) => {
             .join("circle")
             .attr("cx", d => x(d3.min([w,total2]))- x(d - w*Math.floor(d/w)))
             .attr("cy", d => height + height_edit - y(Math.floor(d/w)))
-            .attr("r", 5)
+            .attr("r", 4)
             //.attr("opacity", 0.75);
 
         svg.append("g")
