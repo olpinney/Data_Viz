@@ -1,4 +1,5 @@
 /* D3 Pie Chart */
+// Base code from Tiffany France: https://github.com/tiffanyfrance/CAPP30239_FA22
 
 d3.json("data/percent_cat.json").then(data => {
   console.log(data)

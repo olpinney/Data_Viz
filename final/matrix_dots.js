@@ -1,9 +1,10 @@
-/* Bar chart for COVID cases cases */
+//run code
 function matrix_plot(){
     var height = 800,
         width = 400,
         margin = ({ top: 0, right: 20, bottom: 10, left: 20 });
 
+//load data
 d3.json('data/total_force.json').then((data) => {  
 
 
@@ -13,8 +14,7 @@ d3.json('data/total_force.json').then((data) => {
     var dots_victims = Math.round(+data[0]["force_count"]*num_officers/data[0]["UID"])
     var dots_officers_weapon = Math.round(+data[0]["weapon_count_persons_with"]*num_officers/data[0]["UID"])
     var dots_victims_weapon = Math.round(+data[0]["weapon_count"]*num_officers/data[0]["UID"])
-
-    var w = 25 //Math.ceil(Math.sqrt(dots_victims))
+    var w = 25 // set x-dimension to 25 units
 
     let x = d3.scaleLinear()
         .domain([0, w]) 
@@ -29,10 +29,8 @@ d3.json('data/total_force.json').then((data) => {
         .append("svg")
         .attr("viewBox", [0, 0, width, height]); 
 
-        console.log(height_edit)
-
         // This top piece lets the user set a second color group to appear first.
-        // This part of the code isnt currently utilized
+        // This part of the code lets you visualize the dots in percentage terms
         svg.append("g")
             .attr("fill", color)
             .attr("stroke","#D3D3D3")
@@ -44,6 +42,7 @@ d3.json('data/total_force.json').then((data) => {
             .attr("r", 4)
             //.attr("opacity", 0.75);
 
+        // visualize the main color of dots
         svg.append("g")
             .attr("fill", "#fdd0a2")
             .attr("stroke","#D3D3D3")
@@ -58,20 +57,20 @@ d3.json('data/total_force.json').then((data) => {
 
     colors=["#a63603","#D3D3D3","#e6550d","#fd8d3c","#fdae6b","#fdd0a2","#feedde"]
 
+    //use of force
     height = 800
     width = 400,
     form_matrix("#force_off",w,dots_officers,dots_officers,colors[2],0)
     form_matrix("#force_civ",w,dots_victims,dots_victims,colors[0],0)
 
+    //weapons
     height = 100
     form_matrix("#weapon_off",w,dots_officers_weapon,dots_officers_weapon,colors[2],700)
     form_matrix("#weapon_civ",w,dots_victims_weapon,dots_victims_weapon,colors[0],700)
+    
+    //100 officers baseline
     form_matrix("#one_hundred",w,num_officers,num_officers,colors[4],700)
 
 });
-
 }
 matrix_plot()
-
-console.log(d3.range(0,5))
-    

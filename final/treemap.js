@@ -1,19 +1,18 @@
 // Treemap
-//zoom in and zoom out dont work 
-//maybe do something special for other
-// how can i make gang a better size
+// Base code from Tiffany France: https://github.com/tiffanyfrance/CAPP30239_FA22
 
+//run code
 function run_treemap(){
 let height = 200,
-  width = 600,
-  margin = ({ top: 10, right: 30, bottom: 10, left: 10});
+  width = 700,
+  margin = ({ top: 10, right: 0, bottom: 10, left: 20});
 
 
 const svg = d3.select("#treemap")
   .append("svg")
   .attr("viewBox", [0, 0, width, height]);
 
-// d3.json('treemap-data.json').then(data => { 
+//load data
 d3.json('data/departments_tree.json').then(data => { 
     console.log(data)
 
@@ -22,7 +21,6 @@ d3.json('data/departments_tree.json').then(data => {
         .sum(d => d.value)
         );
   
-    console.log(data)
     const x = d3.scaleLinear().rangeRound([margin.left, width-margin.right]);
     const y = d3.scaleLinear().rangeRound([margin.top, height-margin.bottom]);
   
@@ -46,7 +44,6 @@ d3.json('data/departments_tree.json').then(data => {
         .data(node.children)
         .join("g");
   
-      //should use this clicking code elsewhere
       gNode.filter(d => d.children)
         .attr("cursor", "pointer")
         .on("click", (event, d) => zoomIn(d));
@@ -54,21 +51,14 @@ d3.json('data/departments_tree.json').then(data => {
       gNode.append("rect")
         .attr("fill", d => d.data.color)
         .attr("stroke", "#fff")
-        // .attr("opacity",0.8)
-
-        console.log("look here")
-        console.log(node.ancestors().reverse().map(d => d.data.name))
-        console.log(node.ancestors().map(d=> d.value))
-        console.log("look here")
 
 
       gNode.append("text")
-        .append("tspan") /// THIS IS HARD TO BREAK
+        .append("tspan") 
         .attr("x", 3)
         .attr("y", "1.1em")
         .attr("font-weight", "bold") 
         .attr('font-size',d => Math.min(8,Math.ceil(300*(+d.value)/(+d.ancestors().map(d=> d.value)[1]))))
-        // .text(d => (+d.ancestors().map(d=> d.value)[1]))
         .text(d => d.data.name)
         .append("tspan")
         .attr("x", 3)
