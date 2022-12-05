@@ -38,8 +38,7 @@ d3.json('data/departments_officers.json').then(data_all => {
   }
   
   //set variables for legend
-  const x_axis_title="Self-Reported Use of Force or Weapon Incidents:"
-  var legend_title="Number of Civilian Complaints"
+  const x_axis_title="Self-Reported Use of Force or Weapon Incidents between 2004 and 2016:"
   color_list=["#feedde","#fdd0a2","#fdae6b","#fd8d3c","#e6550d"]
   color = d3.scaleQuantize().domain([-19,81]).range(color_list)
   quantile=20 //based on the 100 span domain for color above
@@ -55,6 +54,7 @@ d3.json('data/departments_officers.json').then(data_all => {
   var height = 400,
     width = 700,
     margin = ({ top: 0, right: 40, bottom: 0, left: 120});
+  var legend_title="Number of Civilian Complaints between 2000 and 2016"
   chart_create("#scatter_intro",data,dept_selection,bubble_var_selection,"#scatter_intro",legend_title,height,width,margin)
 
   //create final chart

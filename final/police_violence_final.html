@@ -18,92 +18,98 @@
     <section class="section-container">
         <div class="text-container">
             <p>
-                Spurred by the magnitude of police killings of unarmed black civilians, America is reexamining the violence at the hands of the police. This website gives you the opportunity to explore data on police violence yourself. 
+                Spurred by the magnitude of police killings of unarmed black civilians, America is grappling with the issues of violence 
+                at the hands of the police. This website gives individuals the opportunity to explore data on police violence themselves. 
             </p><p>
-                This data was obtained from <a href="https://github.com/invinst/chicago-police-data">The Invisible Institute</a>, which sued the Chicago Police Department (CPD) to get these records released to the public. The data includes data on the police roster, police use of force, and civilian complaints through 2016.  
+                This exploration is made possible by the <a href="https://github.com/invinst/chicago-police-data">The Invisible Institute</a>, 
+                 which sued the Chicago Police Department (CPD) in 2016 to get records released after the police killing of Laquan McDonald.  
+                 This dataset is a rare window into police internal records: including the police roster, police self-reported use of force incidents, and civilian complaints. 
             </p><p>
-                This document will help you understand variables contained in this dataset, and prepare you to explore them using the following bubble chart type: 
+                For example, the following chart shows the police officers of Chicago's 1st Police District in 2016.
+                It displays police officers using two different measures of police violence: 
+                the color and x-axis show self-reported incidents of violence by the police, while the bubble sizes show the number of civilian complaints each officer received over the disclosed window.
+            
             </p>
         
             </div>
         
-            <center><h3>CPD Officers by Use of Force, District 1 </h3></center>
-
-
+            <center><h3>Chicago District 001 Police Officers in 2016, </br> by Count of Use of Force Incidents and Civilian Complaints </h3></center>
+            <center><h4></h4></center>
+                       
             <div id="legend_intro" class="container"> </div>
-
+            
             <div class="flex-container-left">
                 <div id="scatter_intro" class="flex-item">
+                Number of Civilian Complaints between 2000 and 2016
                 </div></div>
         
         </div>
         <div class="text-container">
             <p>
-                In the chart above, we can see that a small number of officers use force and weapons with disproportionate frequency. 
-                For example, officers Hansen and Osborn have both reported using force over 60 times - with Hansen reporting the greatest number of incidents in his department.
+                The chart shows that a small number of officers (in orange) use force or weapons with disproportionate frequency. 
+                For example, Officer Hansen reported using force or weapons 95 times over the 12 year reporting period. 
             <p></p>
                 On the other hand, there are many officers who have never reported using force or a weapon, with the majority of officers reporting 1-20 incidents of force or weapon usage. 
             </p><p>
                 The theory of bad-apple policing suggests that the majority of egregious police violence is perpetuated by a few outlier cops; 
-                however, this narrative is overly simplistic. This visualization technique lets the reader explore the ways in which police violence fails to fall neatly along this dimension of a few violent cops and cops who do not enact violence. 
-            </p><p>
-                Before you begin exploring the data, I will teach you about the various variables 
+                however, this narrative is overly simplistic. This page explores how other measures of police violence - such as civilian complaints -
+                do not separate neatly between a few violent cops and cops that do not enact violence.
             </p>
     
         </div>
     </section>
 
     <div class="background_grey">
-    <h1>&ensp;Variable 1: Department</h1>
+    <h1>&ensp;Variable 1: Officers by Department</h1>
     </div>
     
 
     <section class="section-container">
         <div class="text-container">
             <p>
-                We often talk about police officers as a monolith, but this is not the case. 
-                The police are broken into over a hundred departments. 
-                Most officers work in police districts, which encompass beat officers and general 911 response. 
-                The remaining officers are distributed across departments at the city level. Some work as detectives, others in public transports, evidence management or training new recruits.          
+                The police are often discussed as a monolith, but the data shows that police work differs drastically by department. 
+                In 2016, the CPD officers were divided into 78 departments. Most officers worked in police districts, which include beat officers and general 911 response. 
+                The remaining officers were distributed other departments. Some work as detectives, others in public transports, evidence management or training new recruits.          
             </p>
             <p>Click on a department category to see more details. Click on "FULL ROSTER" to go back:</p>
             <p></p>
             
         </div>
         
-        <h3><center>2016 Police Roster by Department Category</center></h3>
-        <center><strong><span id="breadcrumbs"></span></strong></center>
+        <h3><center>CPD Officers by Department Category in 2016 </br><span id="breadcrumbs"></span></center></h3>
         <div class="flex-container">
             <div id="treemap" class="flex-item">
             </div></div>
         
         <div class="text-container">
-            <p>All officers active in the calendar year in 2016 are included under their last known position. </p>
+            <p>All officers active in the calendar year in 2016 are included in their last known position. </p>
         </div>
     </section>
 
     <div class="background_grey">
-        <h1>&ensp;Variable 2: Tactical responses</h1>
+        <h1>&ensp;Variable 2: Officer-Reported Violence</h1>
     </div>
 
     <section class="section-container">
         <div class="text-container">
-            <p>Most violence at the hands of the police is sanctioned by the state. 
-                The police are hired to perform take downs (e.g. tackling), closed hand punches, knee strikes, kicks, and more. These are classified as uses of force.
+            <p>Most violence at the hands of the police is state sanctioned. 
+                The police are hired to perform take downs (e.g. tackling), wristlocks, closed hand punches, knee strikes, kicks, and more. These are classified as uses of force.
                 Police are also licensed to use weapons against civilians: namely tasers, pepper spray, batons, and firearms. These are classified separately as use of weapon.  
             </p><p>
-                Every time such an altercation takes place, the officer writes a self-report of the incident. 
-                These reports are called Tactical Response Reports (TRR) are included in the Invisible Institute dataset.  
+                Every time an altercation takes place, the officer writes a self-report of the incident, called a Tactical Response Report (TRR).
+                The Invisible Institute released all reports created in the 12 years between 2004 and 2016. 
+                These reports speak to the frequency with which police officers use force over the course of their careers. 
             </p><p>
-                The data below contains all use of force and weapon reports from 2004 to mid-2016 for all officers employed by the CPD in 2016. I have additionally excluded officers that are still in recruit training, given that they are not representative of the broader police force.     
+                The chart below speaks to the amount of force used by the average Chicago police officer over their career so far. 
+                The reporting window does not include data before 2004, so the following charts only contain force and weapons usage from the prior 12 years: from 2004 to 2016.
+                The analysis is limited to CPD officers employed in 2016, and excludes officers in recruit training. 
             </p>
         </div>
 
-
-    <center><h2>Percent of Police that Used Force or Weapons between 2004-2016</h2>
+    <center><h2>Use Force and Weapons by CPD Officers Employed in 2016, over a Twelve Year Period</h2>
     <div class="flex-container">
         <div id="one_hundred" class="flex-item-small">
-            <h3>Per 100 Officers in the CPD in 2016</h3>
+            <h3>Per 100 Chigao Police Officers</h3>
         </div>
         <div class="flex-item-small">
         </div>
@@ -126,7 +132,7 @@
 
         </div>
     </div>
-    <h2><i> CPD employeed 12 thousand officers in 2016. Over the prior 12 years, these officers used force on 124 thousand civilians and weapons on 10 thousand civilians </i></h2>
+    <h2><i> CPD employed 11,700 officers in 2016. Over the prior 12 years, these officers reported using force on 124,673 civilians and weapons on 10,480 civilians </i></h2>
     </center>
     </section>
     
@@ -137,24 +143,23 @@
     <section class="section-container">
         <div class="text-container">
             <p>
-            Civilian and departmental complaints form the starting point at which the state considers the permissibility of police actions. 
+            Civilian and departmental complaints are the starting point at which the state considers the permissibility of police actions. 
                 These complaints come in many forms. Officers can receive departmental complaints for a uniform infraction or for using too much overtime. 
                 They can also receive more severe departmental complaints, including neglect of duty and conduct unbecoming.  
             </p>
-            Civilian complaints are submitted for a wide range of issues. 
-                I categorized them into four bucket areas. 
-                Use of Force / Weapon complaints includes excessive or unnecessary force, weapon usage, injury and death.
-                Handling of Arrest / Detainment consists of primarily unlawful searches, illegal arrests and confiscation of property. 
-                Bigotry / Verbal abuse is primarily profanity or abusive language regarding race, ethnicity or sexual orientation.  
-                Criminal Activity is most commonly domestic altercations off duty, but also includes theft, possession or sale of controlled substances and sex offenses. 
+            Civilian complaints are submitted for a wide range of issues, which have been categorized into four bucket areas: 
+            </br><strong>Use of Force / Weapon</strong> includes excessive or unnecessary force, weapon usage, injury and death.
+            </br><strong>Handling of Arrest / Detainment</strong> consists of primarily unlawful searches, illegal arrests and confiscation of property. 
+            </br><strong>Bigotry / Verbal Abuse</strong> is primarily profanity or abusive language regarding race, ethnicity or sexual orientation.  
+            </br><strong>Criminal Activity</strong> is most commonly domestic altercations off duty, but also includes theft, possession or sale of controlled substances and sex offenses. 
             </p>
             <p>
-                This data includes all complaints submitted between 2000 and 2016, excluding officers that are still in recruit training. 
+                The following chart includes all complaints submitted between 2000 and 2016, excluding officers that are still in recruit training. 
             </p>
         </div>
 
         <center>
-            <h3>Percent of Officers Receiving a Complaint, by Complaint Type</h3>
+            <h3>Percent of Officers Receiving a Complaint between 2000 and 2016, by Complaint Type</h3>
         <div class="flex-container">
             <div id="pie_chart" class="flex-item-medium">
             </div>
@@ -168,14 +173,17 @@
 
     <section class="section-container">
         <div class="text-container">
-            <p>Now that you are familiar with the makeup and variables for measuring police violence, you can explore the data for yourself.
-                Try looking at different departments, and see how use of force versus civilian complaints are distributed across the department. 
+            <p>Now that you are familiar with the CPD and variables for measuring police violence, you can explore the data for yourself. 
             </p><p>
-                You can see that, in most departments, a small number of officers use a force far more frequently than the rest of their department. 
-                However, these officers are not anomalies: this distribution of violence is consistent across departments. 
-                Additionally, the concentration of civilian and departmental complaints does not line up neatly with use of force frequency.
+                Try looking at different departments and see how use of force is distributed.
+                You can see that, in most departments, a small number of officers use force far more frequently than the rest of their department. 
+                However, this distribution of violence is not an anomaly: this distribution is consistent across departments. 
+                
             </p><p>
-            Thus, police violence cannot be solely attributed to individual "bad apples". Addressing police violence requires us to acknowledge the variety and wide distribution of violence at the hands of the police.
+                Try looking at the distribution of complaints. You can see that use of force frequency does not line up neatly with any complaint type. 
+            </p><p>
+                Finally, try reading the biography of individual officers. Can these officers by sorted into the categories of "bad apples" and non-violent police?
+                
             </p>
             </div>
         </section>  
@@ -263,14 +271,14 @@
               <label>
               Size Variable:
               <select id="bubble_variable">
-                  <option value="civ_complaint_count">Civilian Complaints (CC)</option>
-                  <option value="civ_complaint_force">CC: Use of Force </option>
-                  <option value="civ_complaint_detain">CC: Arrest and Detainment</option>
-                  <option value="civ_complaint_hate">CC: Discriminatory or Verbal Abuse</option>
-                  <option value="civ_complaint_crime">CC: Criminal Activity</option>            
-                  <option value="dept_complaint_cleaned_count">Department Complaints: Severe</option>
-                  <option value="force_count">Officer-Reported Use of Force</option>
-                  <option value="weapon_count">Officer-Reported Use of Weapon</option>
+                  <option value="civ_complaint_count">Civilian Complaints since 2000: All</option>
+                  <option value="civ_complaint_force">Civilian Complaints since 2000: Use of Force </option>
+                  <option value="civ_complaint_detain">Civilian Complaints since 2000: Arrest and Detainment</option>
+                  <option value="civ_complaint_hate">Civilian Complaints since 2000: Discriminatory or Verbal Abuse</option>
+                  <option value="civ_complaint_crime">Civilian Complaints since 2000: Criminal Activity</option>            
+                  <option value="dept_complaint_cleaned_count">Department Complaints since 2000: Severe</option>
+                  <option value="force_count">Officer-Reported Use of Force since 2004  </option>
+                  <option value="weapon_count">Officer-Reported Use of Weapon since 2004 </option>
               </select>
               </label>
             </p>        
@@ -279,9 +287,10 @@
         </div>
         </div>
     </div> 
-
+    
     <div class="flex-container-left">
         <div id="scatter" class="flex-item">
+            Size Variable
         </div></div>
     <div id="scatter" class="container">
     </div>
