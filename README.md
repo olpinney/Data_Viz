@@ -2,7 +2,7 @@
 This is the root repository for Olivia Pinney's Data Vizualization final project for the UChicago, Fall 2022 data visualization course. 
 
 ## Course Content 
-[Final Project Link](https://olpinney.github.io/CAPP30239_FA22/week_01/data_portrait/README.md)
+[Final Project Link](https://olpinney.github.io/Data_Viz/final/police_violence_final.html)
 
 ## Credit
 Credit goes to Tiffany France for designing and teaching this course.
